@@ -1,0 +1,31 @@
+package com.example.grimsleyrobotics.robotftc2017;
+
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.hardware.adafruit.BNO055IMU;
+
+/**
+ * Created by GrimsleyRobotics on 9/21/2017.
+ */
+
+public class HardwareIndianbot {
+        /* Public OpMode members. */
+        public DcMotor leftFrontMotor = null;
+        public DcMotor leftBackMotor = null;
+        public DcMotor rightFrontMotor = null;
+        public DcMotor rightBackMotor = null;
+        public DcMotor ArmMotor = null;
+
+        // The Gyro sensor
+        BNO055IMU imu;
+
+        /* local OpMode members. */
+        HardwareMap hwMap = null;
+    }
+
+    /* Initialize standard Hardware interfaces */
+    public void init(HardwareMap ahwMap) {
+        // Save reference to Hardware map
+        hwMap = ahwMap;
+    }
+}

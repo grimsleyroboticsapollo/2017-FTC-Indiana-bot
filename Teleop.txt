@@ -1,0 +1,21 @@
+package com.example.grimsleyrobotics.robotftc2017;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+@TeleOp(name="Custom TeleOp", group="Custom")
+//@Disabled
+
+public class ProjectIndianaBot extends OpMode{
+    HardwareIndianbotbot robot       = new HardwareIndianbot();
+    
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_project_indiana_bot);
+
+
+        }
+    }
+}
