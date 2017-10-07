@@ -104,6 +104,7 @@ public class BNO055 extends LinearOpMode
         // Loop and update the dashboard
         while (opModeIsActive()) {
             telemetry.update();
+            SleepHelper.waitMilliseconds(500);
         }
     }
 

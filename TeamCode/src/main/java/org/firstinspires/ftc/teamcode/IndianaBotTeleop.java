@@ -55,6 +55,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 @Disabled
 public class IndianaBotTeleop extends OpMode{
 
+    //int. debug mode
+    boolean IN_DEBUG_MODE = false;
+
     /* Declare OpMode members. */
     HardwareIndianaBot robot       = new HardwareIndianaBot(); // use the class created to define a Pushbot's hardware
                                                          // could also use HardwarePushbotMatrix class.
@@ -98,7 +101,7 @@ public class IndianaBotTeleop extends OpMode{
         double rightX;
         double leftY;
         double rightY;
-
+        double debugSpeedMult = 1.;
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         leftX = -gamepad1.left_stick_x;
         rightY = -gamepad1.right_stick_y;
@@ -110,22 +113,18 @@ public class IndianaBotTeleop extends OpMode{
         robot.leftBackDrive.setPower(rightX);
         robot.rightBackDrive.setPower(leftY);
 
-        //int. debug mode
-        boolean inDebugMode = false;
-
-        if (inDebugMode == true) {
-            
+        if (IN_DEBUG_MODE == true) {
+            debugSpeedMult = DebugCode.speedMult(gamepad1);
         } else {
-            inDebugMode = false;
+            IN_DEBUG_MODE = false;
         }
 
         //Debug mode
         boolean debug;
-        debug = gamepad1.left_trigger;
+        debug = gamepad1.start;
 
         if (debug) {
-            //inDebugMode = true;
-
+            IN_DEBUG_MODE = true;
             telemetry.addData("Say", "WARNING: THIS IS THE DEBUG MODE FOR THE ROBOT!");
         }
 
