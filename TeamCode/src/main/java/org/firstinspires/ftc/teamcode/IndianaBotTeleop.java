@@ -72,7 +72,7 @@ public class IndianaBotTeleop extends OpMode{
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "YO, it's time to do the robet. Press button to start!1!");    //
+        telemetry.addData("Say", "YO, it's tyme to do the robet. Prez buton to stert!1!");    //
     }
 
     /*
@@ -109,6 +109,25 @@ public class IndianaBotTeleop extends OpMode{
         robot.rightFrontDrive.setPower(leftX);
         robot.leftBackDrive.setPower(rightX);
         robot.rightBackDrive.setPower(leftY);
+
+        //int. debug mode
+        boolean inDebugMode = false;
+
+        if (inDebugMode == true) {
+            
+        } else {
+            inDebugMode = false;
+        }
+
+        //Debug mode
+        boolean debug;
+        debug = gamepad1.left_trigger;
+
+        if (debug) {
+            //inDebugMode = true;
+
+            telemetry.addData("Say", "WARNING: THIS IS THE DEBUG MODE FOR THE ROBOT!");
+        }
 
         // Use gamepad left & right Bumpers to open and close the claw
         if (gamepad1.right_bumper)
