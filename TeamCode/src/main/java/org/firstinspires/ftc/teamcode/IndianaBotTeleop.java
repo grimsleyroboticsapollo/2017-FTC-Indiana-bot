@@ -51,8 +51,8 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="INDIANABOTTELEOP", group="teleop")
-@Disabled
+@TeleOp(name="INDIANABOT_TELEOP", group="teleop")
+//@Disabled
 public class IndianaBotTeleop extends OpMode{
 
     //int. debug mode
