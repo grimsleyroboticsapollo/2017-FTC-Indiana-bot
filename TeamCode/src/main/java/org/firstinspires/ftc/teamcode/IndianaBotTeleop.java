@@ -72,8 +72,9 @@ public class IndianaBotTeleop extends OpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "YO, it's tyme to do the robet. Prez buton to stert!1!");    //
-
+        String helloWorld = "YO, it's tyme to do the robet. Prez buton to stert!1!";
+        telemetry.addData("Say", helloWorld);    //
+        TextReader.speak(hardwareMap.appContext, helloWorld);
     }
 
     /*
