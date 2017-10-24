@@ -1,20 +1,20 @@
-package util;
+package org.firstinspires.ftc.teamcode;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
 
-import org.apache.log4j.Logger;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * Helper around text-to-speech methods
  */
 public class TextReader extends Thread {
-    private static Logger log = Logger.getLogger(TextReader.class);
+    private static Logger log = Logger.getLogger(TextReader.class.getCanonicalName());
 
     private static Set<String> messages = new LinkedHashSet<String>();
     private static final long LOOP_INTERVAL = 1000;
@@ -30,7 +30,7 @@ public class TextReader extends Thread {
      */
     public static void speak(Context context, String message) {
 
-        log.debug("speak: '" + message + "'");
+        log.fine("speak: '" + message + "'");
 
         synchronized (speakMutex) {
             messages.add(message);
@@ -58,7 +58,7 @@ public class TextReader extends Thread {
             }
         }
 
-        log.debug("isSpeaking() returns: " + returnVal);
+        log.fine("isSpeaking() returns: " + returnVal);
         return returnVal;
     }
 
@@ -73,12 +73,12 @@ public class TextReader extends Thread {
                 synchronized (isSpeakingMutex) {
 
                     if ((textToSpeech == null) && (!messages.isEmpty())) {
-                        log.debug("TextToSpeech is null but messages are on the queue; initializing");
+                        log.fine("TextToSpeech is null but messages are on the queue; initializing");
                         ttsIsInitialized = false;
                         textToSpeech = new android.speech.tts.TextToSpeech(context, new android.speech.tts.TextToSpeech.OnInitListener() {
                             @Override
                             public void onInit(int i) {
-                                log.debug("TextToSpeech initialized OK");
+                                log.fine("TextToSpeech initialized OK");
                                 ttsIsInitialized = true;
                             }
                         });
@@ -98,18 +98,18 @@ public class TextReader extends Thread {
                         // ready to talk
 
                         if (!textToSpeech.isSpeaking()) {
-                            log.debug("not speaking, check next message");
+                            log.fine("not speaking, check next message");
 
                             Iterator<String> iterator = messages.iterator();
                             if (iterator.hasNext()) {
 
                                 String sayTheWord = iterator.next();
-                                log.debug("say: '" + sayTheWord + "'");
+                                log.fine("say: '" + sayTheWord + "'");
                                 textToSpeech.speak(sayTheWord, TextToSpeech.QUEUE_ADD, null);
                                 iterator.remove();
 
                             } else {
-                                log.debug("all done talking, shutting down");
+                                log.fine("all done talking, shutting down");
 
                                 textToSpeech.shutdown();
                                 textToSpeech = null;
@@ -141,7 +141,7 @@ public class TextReader extends Thread {
             }
 
         } catch (Exception e) {
-            log.error("An unexpected error has occurred.", e);
+            log.severe("An unexpected error has occurred.");
 
         } finally {
 
