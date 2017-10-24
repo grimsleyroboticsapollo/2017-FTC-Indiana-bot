@@ -29,40 +29,37 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
 /**
  * This file provides basic Telop driving for a Pushbot robot.
  * The code is structured as an Iterative OpMode
- *
+ * <p>
  * This OpMode uses the common Pushbot hardware class to define the devices on the robot.
  * All device access is managed through the HardwarePushbot class.
- *
+ * <p>
  * This particular OpMode executes a basic Tank Drive Teleop for a PushBot
  * It raises and lowers the claw using the Gampad Y and A buttons respectively.
  * It also opens and closes the claws slowly using the left and right Bumper buttons.
- *
+ * <p>
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="INDIANABOT_TELEOP", group="teleop")
+@TeleOp(name = "INDIANABOT_TELEOP", group = "teleop")
 //@Disabled
-public class IndianaBotTeleop extends OpMode{
+public class IndianaBotTeleop extends OpMode {
 
     //int. debug mode
     boolean IN_DEBUG_MODE = false;
 
     /* Declare OpMode members. */
-    HardwareIndianaBot robot       = new HardwareIndianaBot(); // use the class created to define a Pushbot's hardware
-                                                         // could also use HardwarePushbotMatrix class.
-    double          clawOffset  = 0.0 ;                  // Servo mid position
-    final double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
+    HardwareIndianaBot robot = new HardwareIndianaBot(); // use the class created to define a Pushbot's hardware
+    // could also use HardwarePushbotMatrix class.
+    double clawOffset = 0.0;                  // Servo mid position
+    final double CLAW_SPEED = 0.02;                 // sets rate to move servo
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -101,19 +98,23 @@ public class IndianaBotTeleop extends OpMode{
         double rightX;
         double leftY;
         double rightY;
+        boolean clawOpen;
+        boolean clawClose;
         double debugSpeedMult = 1.;
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         leftX = -gamepad1.left_stick_x;
         rightY = -gamepad1.right_stick_y;
         leftY = -gamepad1.left_stick_y;
         rightX = -gamepad1.right_stick_x;
+        clawOpen = gamepad2.a;
+        clawClose = gamepad2.x;
 
         robot.leftFrontDrive.setPower(rightY);
         robot.rightFrontDrive.setPower(leftX);
         robot.leftBackDrive.setPower(rightX);
         robot.rightBackDrive.setPower(leftY);
 
-        if (IN_DEBUG_MODE == true) {
+        if (IN_DEBUG_MODE) {
             debugSpeedMult = DebugCode.speedMult(gamepad1);
         } else {
             IN_DEBUG_MODE = false;
@@ -128,18 +129,21 @@ public class IndianaBotTeleop extends OpMode{
             telemetry.addData("Say", "WARNING: THIS IS THE DEBUG MODE FOR THE ROBOT!");
         }
 
-        // Use gamepad left & right Bumpers to open and close the claw
-        if (gamepad1.right_bumper)
+        // Use gamepad letf & right Bumpers to open and close the claw
+        if (clawOpen) {
             clawOffset += CLAW_SPEED;
-        else if (gamepad1.left_bumper)
+            telemetry.addData("CLAW", "open button has been pressed %b");
+        } else if (clawClose) {
             clawOffset -= CLAW_SPEED;
+            telemetry.addData("CLAW", "close button has been pressed %b");
+        }
 
         // Move both servos to new position.  Assume servos are mirror image of each other.
-        clawOffset = Range.clip(clawOffset, -0.5, 0.5);
-        robot.Claw.setPosition(clawOffset = -1);
+        clawOffset = Range.clip(clawOffset, 0, 1);
+        robot.clawServo.setPosition(clawOffset);
 
         // Send telemetry message to signify robot running;
-        telemetry.addData("claw",  "Offset = %.2f", clawOffset);
+        telemetry.addData("CLAW", "Offset = %.2f", clawOffset);
     }
 
     /*
