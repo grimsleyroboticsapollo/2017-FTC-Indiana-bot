@@ -31,7 +31,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 /**
  * This file provides basic Telop driving for a Pushbot robot.
@@ -57,6 +61,14 @@ public class IndianaBotTeleop extends OpMode {
 
     /* Declare OpMode members. */
     HardwareIndianaBot robot = new HardwareIndianaBot(); // use the class created to define a Pushbot's hardware
+
+    //sensors
+    BNO055 imu;
+
+    // State used for updating telemetry
+    Orientation angles;
+    Acceleration gravity;
+
     // could also use HardwarePushbotMatrix class.
     double clawOffset = 0.0;                  // Servo mid position
     final double CLAW_SPEED = 0.02;                 // sets rate to move servo

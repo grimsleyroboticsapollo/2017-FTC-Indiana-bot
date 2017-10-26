@@ -30,11 +30,12 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 /**
  * This file illustrates the concept of driving a path based on time.
@@ -57,14 +58,21 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="INDIANABOT_AUTONOMOUS", group="autonomous")
+@Autonomous(name="INDIANABOT_AUTONOMOUS_BLUE", group="autonomous")
 //@Disabled
-public class AutoIndianBot extends LinearOpMode {
+public class AutoIndianBotBlue extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareIndianaBot         robot   = new HardwareIndianaBot();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
+    //sensors
+    BNO055 imu;
+    ColorSensor sensorRGB;
+
+    // State used for updating telemetry
+    Orientation angles;
+    Acceleration gravity;
 
     static final double     FORWARD_SPEED = 1;
     static final double     TURN_SPEED    = 0.5;
@@ -77,6 +85,7 @@ public class AutoIndianBot extends LinearOpMode {
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
+        sensorRGB = hardwareMap.colorSensor.get("color");
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Initialized and ready.");    //
@@ -86,41 +95,36 @@ public class AutoIndianBot extends LinearOpMode {
         waitForStart();
 
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
-
-        // Step 1:  Drive forward for 3 seconds
+        telemetry.addData("Status", "Autonomus 1 is running");
+        // Step 1:  Go twards the jewel
         robot.leftFrontDrive.setPower(FORWARD_SPEED);
         robot.rightFrontDrive.setPower(FORWARD_SPEED);
         robot.leftBackDrive.setPower(FORWARD_SPEED);
         robot.rightBackDrive.setPower(FORWARD_SPEED);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
+        while (opModeIsActive() && (runtime.seconds() < .5)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
+        telemetry.addData("Status", "Action 1 is done!");
 
-        // Step 2:  Spin right for 1.3 seconds
-        robot.leftFrontDrive.setPower(TURN_SPEED);
-        robot.rightBackDrive.setPower(-TURN_SPEED);
-        runtime.reset();
+        // Step 2:  Turn twards correct jewel
+        while (sensorRGB.alpha() <= 157) {
+            robot.leftFrontDrive.setPower(-TURN_SPEED);
+            robot.rightBackDrive.setPower(TURN_SPEED);
+            runtime.reset();
+        }
+
         while (opModeIsActive() && (runtime.seconds() < 1.3)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
+        telemetry.addData("Status", "Action 2 is done!");
 
-        // Step 3:  Drive Backwards for 1 Second
-        robot.leftBackDrive.setPower(-FORWARD_SPEED);
-        robot.rightFrontDrive.setPower(-FORWARD_SPEED);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
-            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-
-        // Step 4:  Stop and close the claw.
-        robot.leftFrontDrive.setPower(0);
-        robot.leftBackDrive.setPower(0);
-        robot.rightFrontDrive.setPower(0);
-        robot.rightBackDrive.setPower(0);
+        //Step 3:
+        robot.leftBackDrive.setPower(TURN_SPEED);
+        robot.rightFrontDrive.setPower(-TURN_SPEED);
+        telemetry.addData("Status", "Action 3 is done!");
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
