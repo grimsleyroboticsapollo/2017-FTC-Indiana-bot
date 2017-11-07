@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.Range;
 
 public class MotorHelper {
 
@@ -31,19 +32,30 @@ public class MotorHelper {
                              DcMotor rightBackDrive
                              ) {
 
-        // TODO make sure driveSpeed is not larger than 1.0 or smaller than -1.0
+        if (driveSpeed < -1.) {
+            driveSpeed = -1.;
+        } else if (driveSpeed > 1.) {
+            driveSpeed = 1.;
+        }
 
         // calculate motor speed for driving
         double leftFrontSpeed = driveSpeed * Math.cos((angle + 45.) / RAD_TO_DEGREES);
-        double rightFrontSpeed = 0; // TODO implement
-        double leftBackSpeed = 0; // TODO implement
-        double rightBackSpeed = 0; // TODO implement
+        double rightFrontSpeed = driveSpeed * Math.cos((angle - 45.) / RAD_TO_DEGREES);
+        double leftBackSpeed = driveSpeed * Math.cos((angle - 45.) / RAD_TO_DEGREES);
+        double rightBackSpeed = driveSpeed * Math.cos((angle + 45.) / RAD_TO_DEGREES);
 
         // turn on the spot
         leftFrontSpeed += turnOnTheSpotSpeed;
-        // TODO calculate the other three speeds
+        leftBackSpeed += turnOnTheSpotSpeed;
+        rightFrontSpeed -= turnOnTheSpotSpeed;
+        rightBackSpeed -= turnOnTheSpotSpeed;
 
-        // TODO perform limit check to make sure that all four motor speeds are within -1.0 and 1.0
+        // make sure it's between 1 & -1
+
+        leftFrontSpeed = Range.clip(leftFrontSpeed, -1, 1);
+        leftBackSpeed = Range.clip(leftBackSpeed, -1, 1);
+        rightFrontSpeed = Range.clip(rightFrontSpeed, -1, 1);
+        rightBackSpeed = Range.clip(rightBackSpeed, -1, 1);
 
         // TODO power the motors
 

@@ -117,17 +117,14 @@ public class IndianaBotTeleop extends OpMode {
         boolean clawClose;
         double debugSpeedMult = 1.;
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-        leftX = -gamepad1.left_stick_x;
-        rightY = -gamepad1.right_stick_y;
-        leftY = -gamepad1.left_stick_y;
-        rightX = -gamepad1.right_stick_x;
+        leftX = gamepad1.left_stick_x;
+        rightY = gamepad1.right_stick_y;
+        leftY = gamepad1.left_stick_y;
+        rightX = gamepad1.right_stick_x;
         clawOpen = gamepad2.a;
         clawClose = gamepad2.x;
-
-        robot.leftFrontDrive.setPower(rightY);
-        robot.rightFrontDrive.setPower(leftX);
-        robot.leftBackDrive.setPower(rightX);
-        robot.rightBackDrive.setPower(leftY);
+        double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
+        MotorHelper.drive(joystickAngle, 1, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
 
         if (IN_DEBUG_MODE) {
             debugSpeedMult = DebugCode.speedMult(gamepad1);
