@@ -57,8 +57,10 @@ public class MotorHelper {
         rightFrontSpeed = Range.clip(rightFrontSpeed, -1, 1);
         rightBackSpeed = Range.clip(rightBackSpeed, -1, 1);
 
-        // TODO power the motors
-
+        leftFrontDrive.setPower(leftFrontSpeed);
+        leftBackDrive.setPower(leftBackSpeed);
+        rightFrontDrive.setPower(rightFrontSpeed);
+        rightBackDrive.setPower(rightBackSpeed);
     }
 
 }
