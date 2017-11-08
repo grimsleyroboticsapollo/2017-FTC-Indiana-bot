@@ -123,7 +123,8 @@ public class IndianaBotTeleop extends OpMode {
         clawOpen = gamepad2.a;
         clawClose = gamepad2.x;
         double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
-        MotorHelper.drive(joystickAngle, 1, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
+        double joySpeed = Math.sqrt( leftX * leftX + leftY * leftY );
+        MotorHelper.drive(joystickAngle, joySpeed, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
 
         telemetry.addData("Say", "left x" + leftX + "right x" + rightX + "left y" + leftY + "joystick" + joystickAngle);
 
