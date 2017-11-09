@@ -60,6 +60,8 @@ public class HardwareIndianaBot
     public Servo clawServo = null;
 
     public static final double MID_SERVO       =  0.5 ;
+    public static double OPEN_SERVO = 00.00;
+    public static double CLOSE_SERVO = 0.;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -101,6 +103,7 @@ public class HardwareIndianaBot
         // Define and initialize ALL installed servos.
         clawServo = hwMap.get(Servo.class, "CLAW");
         clawServo.setPosition(MID_SERVO);
+
     }
  }
 

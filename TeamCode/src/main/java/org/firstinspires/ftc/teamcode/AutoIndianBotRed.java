@@ -99,7 +99,7 @@ public class AutoIndianBotRed extends LinearOpMode {
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         telemetry.addData("Status", "Autonomus 2 is running");
 
-        // Step 1:  Go twards the jewel
+        // Step 1:  Go towards the jewel
         robot.leftFrontDrive.setPower(FORWARD_SPEED);
         robot.rightFrontDrive.setPower(FORWARD_SPEED);
         robot.leftBackDrive.setPower(FORWARD_SPEED);

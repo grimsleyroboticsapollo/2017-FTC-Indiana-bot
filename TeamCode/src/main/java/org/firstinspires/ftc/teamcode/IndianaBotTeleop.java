@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.util.Hardware;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -69,9 +70,6 @@ public class IndianaBotTeleop extends OpMode {
     Orientation angles;
     Acceleration gravity;
 
-    // could also use HardwarePushbotMatrix class.
-    double clawOffset = 0.0;                  // Servo mid position
-    final double CLAW_SPEED = 0.02;                 // sets rate to move servo
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -112,7 +110,6 @@ public class IndianaBotTeleop extends OpMode {
         double leftX;
         double rightX;
         double leftY;
-        double rightY;
         boolean clawOpen;
         boolean clawClose;
         double debugSpeedMult = 1.;
@@ -125,8 +122,6 @@ public class IndianaBotTeleop extends OpMode {
         double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
         double joySpeed = Math.sqrt( leftX * leftX + leftY * leftY );
         MotorHelper.drive(joystickAngle, joySpeed, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
-
-        telemetry.addData("Say", "left x" + leftX + "right x" + rightX + "left y" + leftY + "joystick" + joystickAngle);
 
         if (IN_DEBUG_MODE) {
             debugSpeedMult = DebugCode.speedMult(gamepad1);
@@ -145,25 +140,20 @@ public class IndianaBotTeleop extends OpMode {
 
         // Use gamepad letf & right Bumpers to open and close the claw
         if (clawOpen) {
-            clawOffset += CLAW_SPEED;
+            HardwareIndianaBot.OPEN_SERVO += 1;
             telemetry.addData("CLAW", "open button has been pressed %b");
         } else if (clawClose) {
-            clawOffset -= CLAW_SPEED;
+            HardwareIndianaBot.CLOSE_SERVO -= 1;
             telemetry.addData("CLAW", "close button has been pressed %b");
         }
 
-        // Move both servos to new position.  Assume servos are mirror image of each other.
-        clawOffset = Range.clip(clawOffset, 0, 1);
-        robot.clawServo.setPosition(clawOffset);
-
-        // Send telemetry message to signify robot running;
-        telemetry.addData("CLAW", "Offset = %.2f", clawOffset);
-    }
+}
 
     /*
      * Code to run ONCE after the driver hits STOP
      */
     @Override
     public void stop() {
+
     }
 }

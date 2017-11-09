@@ -46,9 +46,10 @@ public class MotorHelper {
 
         // turn on the spot
         leftFrontSpeed += turnOnTheSpotSpeed;
-        leftBackSpeed += turnOnTheSpotSpeed;
-        rightFrontSpeed -= turnOnTheSpotSpeed;
+        leftBackSpeed -= turnOnTheSpotSpeed;
+        rightFrontSpeed += turnOnTheSpotSpeed;
         rightBackSpeed -= turnOnTheSpotSpeed;
+
 
         // make sure it's between 1 & -1
 
