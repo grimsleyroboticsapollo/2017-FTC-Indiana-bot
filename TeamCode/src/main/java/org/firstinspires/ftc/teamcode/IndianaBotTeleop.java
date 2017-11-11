@@ -138,10 +138,7 @@ public class IndianaBotTeleop extends OpMode {
             telemetry.addData("Say", "WARNING: THIS IS THE DEBUG MODE FOR THE ROBOT!");
         }
 
-        // Use gamepad letf & right Bumpers to open and close the claw
-        if (clawOpen) {
-            HardwareIndianaBot.OPEN_SERVO += 1;
-            // TODO the syntax for setting the servo position is:
+        // TODO the syntax for setting the servo position is:
             /*
             robot.clawServo.setPosition( <value> );
 
@@ -151,10 +148,17 @@ public class IndianaBotTeleop extends OpMode {
 
             @param position the position to which the servo should move, a value in the range [0.0, 1.0]
              */
+        if (clawOpen) {
+            robot.clawServo.setPosition(1.5);
             telemetry.addData("CLAW", "open button has been pressed %b");
-        } else if (clawClose) {
-            HardwareIndianaBot.CLOSE_SERVO -= 1;
+        } else {
+            robot.clawServo.setPosition(0.);
+        }
+        if (clawClose) {
+            robot.clawServo.setPosition(-1.5);
             telemetry.addData("CLAW", "close button has been pressed %b");
+        } else {
+            robot.clawServo.setPosition(0.);
         }
 
 }
