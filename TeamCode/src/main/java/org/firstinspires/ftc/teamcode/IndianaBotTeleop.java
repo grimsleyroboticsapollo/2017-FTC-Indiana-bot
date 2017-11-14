@@ -111,17 +111,19 @@ public class IndianaBotTeleop extends OpMode {
         double rightX;
         double leftY;
         boolean clawOpen;
-        boolean clawClose;
+        boolean clawUp;
+        boolean clawDown;
         double debugSpeedMult = 1.;
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         leftX = gamepad1.left_stick_x;
         leftY = gamepad1.left_stick_y;
         rightX = gamepad1.right_stick_x;
         clawOpen = gamepad2.a;
-        clawClose = gamepad2.x;
+        clawUp = gamepad2.x;
+        clawDown = gamepad2.y;
         double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
         double joySpeed = Math.sqrt( leftX * leftX + leftY * leftY );
-        MotorHelper.drive(joystickAngle, joySpeed, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
+        MotorHelper.drive(joystickAngle, joySpeed, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive, robot.ClawMotor);
 
         if (IN_DEBUG_MODE) {
             debugSpeedMult = DebugCode.speedMult(gamepad1);
@@ -149,18 +151,23 @@ public class IndianaBotTeleop extends OpMode {
             @param position the position to which the servo should move, a value in the range [0.0, 1.0]
              */
         if (clawOpen) {
-            robot.clawServo.setPosition(1.5);
+            robot.clawServo.setPosition(.9);
             telemetry.addData("CLAW", "open button has been pressed %b");
-        } else {
-            robot.clawServo.setPosition(0.);
-        }
-        if (clawClose) {
-            robot.clawServo.setPosition(-1.5);
-            telemetry.addData("CLAW", "close button has been pressed %b");
-        } else {
+        } else if (!clawOpen){
             robot.clawServo.setPosition(0.);
         }
 
+        if (clawUp) {
+            robot.ClawMotor.setPower(.5);
+        } else if (!clawUp){
+            robot.ClawMotor.setPower(0);
+        }
+
+        if (clawDown) {
+            robot.ClawMotor.setPower(-.5);
+        } else if (!clawDown) {
+            robot.ClawMotor.setPower(0);
+        }
 }
 
     /*

@@ -29,7 +29,8 @@ public class MotorHelper {
                              DcMotor leftFrontDrive,
                              DcMotor rightFrontDrive,
                              DcMotor leftBackDrive,
-                             DcMotor rightBackDrive
+                             DcMotor rightBackDrive,
+                             DcMotor ClawMotor
                              ) {
 
         if (driveSpeed < -1.) {
