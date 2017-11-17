@@ -158,15 +158,15 @@ public class IndianaBotTeleop extends OpMode {
         }
 
         if (clawUp) {
-            robot.ClawMotor.setPower(.5);
+            robot.ClawMotor.setPower(1.);
         } else if (!clawUp){
-            robot.ClawMotor.setPower(0);
+            robot.ClawMotor.setPower(0.);
         }
 
         if (clawDown) {
-            robot.ClawMotor.setPower(-.5);
+            robot.ClawMotor.setPower(1.);
         } else if (!clawDown) {
-            robot.ClawMotor.setPower(0);
+            robot.ClawMotor.setPower(0.);
         }
 }
 
