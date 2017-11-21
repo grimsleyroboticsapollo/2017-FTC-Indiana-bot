@@ -29,8 +29,7 @@ public class MotorHelper {
                              DcMotor leftFrontDrive,
                              DcMotor rightFrontDrive,
                              DcMotor leftBackDrive,
-                             DcMotor rightBackDrive,
-                             DcMotor ClawMotor
+                             DcMotor rightBackDrive
                              ) {
 
         if (driveSpeed < -1.) {
@@ -44,7 +43,6 @@ public class MotorHelper {
         double rightFrontSpeed = driveSpeed * Math.cos((angle - 45.) / RAD_TO_DEGREES);
         double leftBackSpeed = driveSpeed * Math.cos((angle - 45.) / RAD_TO_DEGREES);
         double rightBackSpeed = driveSpeed * Math.cos((angle + 45.) / RAD_TO_DEGREES);
-        double clawSpeed = driveSpeed * Math.cos((angle + 45.) / RAD_TO_DEGREES);
 
         // turn on the spot
         leftFrontSpeed += turnOnTheSpotSpeed;
@@ -59,13 +57,18 @@ public class MotorHelper {
         leftBackSpeed = Range.clip(leftBackSpeed, -1, 1);
         rightFrontSpeed = Range.clip(rightFrontSpeed, -1, 1);
         rightBackSpeed = Range.clip(rightBackSpeed, -1, 1);
-        clawSpeed = Range.clip(clawSpeed, -1, 1);
+
 
         leftFrontDrive.setPower(leftFrontSpeed);
         leftBackDrive.setPower(leftBackSpeed);
         rightFrontDrive.setPower(rightFrontSpeed);
         rightBackDrive.setPower(rightBackSpeed);
-        ClawMotor.setPower(clawSpeed);
+
+    }
+    public static void claw_Hand(DcMotor clawMotor, double clawSpeed)
+    {
+        clawSpeed = Range.clip(clawSpeed, -1, 1);
+        clawMotor.setPower(clawSpeed);
     }
 
 }

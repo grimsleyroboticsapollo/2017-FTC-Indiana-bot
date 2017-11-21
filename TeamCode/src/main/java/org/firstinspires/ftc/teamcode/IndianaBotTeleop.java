@@ -123,7 +123,7 @@ public class IndianaBotTeleop extends OpMode {
         clawDown = gamepad2.y;
         double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
         double joySpeed = Math.sqrt( leftX * leftX + leftY * leftY );
-        MotorHelper.drive(joystickAngle, joySpeed, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive, robot.ClawMotor);
+        MotorHelper.drive(joystickAngle, joySpeed, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
 
         if (IN_DEBUG_MODE) {
             debugSpeedMult = DebugCode.speedMult(gamepad1);
@@ -152,21 +152,18 @@ public class IndianaBotTeleop extends OpMode {
              */
         if (clawOpen) {
             robot.clawServo.setPosition(.9);
-            telemetry.addData("CLAW", "open button has been pressed %b");
+            telemetry.addData("CLAW", "open button has been pressed");
         } else if (!clawOpen){
             robot.clawServo.setPosition(0.);
         }
 
         if (clawUp) {
-            robot.ClawMotor.setPower(1.);
-        } else if (!clawUp){
-            robot.ClawMotor.setPower(0.);
+            MotorHelper.claw_Hand(robot.clawMotor, 1);
+            telemetry.addData("CLAW", "up button has been pressed");
         }
-
         if (clawDown) {
-            robot.ClawMotor.setPower(1.);
-        } else if (!clawDown) {
-            robot.ClawMotor.setPower(0.);
+            MotorHelper.claw_Hand(robot.clawMotor, -1);
+            telemetry.addData("CLAW", "down button has been pressed");
         }
 }
 
