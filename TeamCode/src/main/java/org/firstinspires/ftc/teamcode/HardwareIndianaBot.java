@@ -58,7 +58,8 @@ public class HardwareIndianaBot
     public DcMotor  rightFrontDrive  = null;
     public DcMotor  rightBackDrive  = null;
     public DcMotor  clawMotor = null;
-    public Servo clawServo = null;
+    public Servo clawServo1 = null;
+    public Servo clawServo2 = null;
 
     public static final double MID_SERVO       =  0.5 ;
     public static double OPEN_SERVO = 00.00;
@@ -104,8 +105,11 @@ public class HardwareIndianaBot
         rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
-        clawServo = hwMap.get(Servo.class, "CLAW");
-        clawServo.setPosition(MID_SERVO);
+        clawServo1 = hwMap.get(Servo.class, "CLAW");
+        clawServo1.setPosition(MID_SERVO);
+
+        clawServo2 = hwMap.get(Servo.class, "CLAU");
+        clawServo2.setPosition(MID_SERVO);
 
     }
  }

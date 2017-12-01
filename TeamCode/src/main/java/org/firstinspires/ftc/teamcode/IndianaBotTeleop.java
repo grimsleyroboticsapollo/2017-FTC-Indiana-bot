@@ -151,10 +151,12 @@ public class IndianaBotTeleop extends OpMode {
             @param position the position to which the servo should move, a value in the range [0.0, 1.0]
              */
         if (clawOpen) {
-            robot.clawServo.setPosition(.9);
+            robot.clawServo1.setPosition(.9);
+            robot.clawServo2.setPosition(-.9);
             telemetry.addData("CLAW", "open button has been pressed");
         } else if (!clawOpen){
-            robot.clawServo.setPosition(0.);
+            robot.clawServo1.setPosition(0.);
+            robot.clawServo2.setPosition(0.);
         }
 
         if (clawUp) {
