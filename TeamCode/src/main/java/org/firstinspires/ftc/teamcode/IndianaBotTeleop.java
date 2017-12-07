@@ -153,10 +153,14 @@ public class IndianaBotTeleop extends OpMode {
         if (clawOpen) {
             robot.clawServo1.setPosition(.9);
             robot.clawServo2.setPosition(-.9);
+            robot.clawServo6.setPosition(.9);
+            robot.clawServo80.setPosition(-.9);
             telemetry.addData("CLAW", "open button has been pressed");
         } else if (!clawOpen){
             robot.clawServo1.setPosition(0.);
             robot.clawServo2.setPosition(0.);
+            robot.clawServo6.setPosition(0.);
+            robot.clawServo80.setPosition(0.);
         }
 
         if (clawUp) {

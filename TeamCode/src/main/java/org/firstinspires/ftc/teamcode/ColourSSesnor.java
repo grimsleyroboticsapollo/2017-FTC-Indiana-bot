@@ -97,7 +97,7 @@ public class ColourSSesnor extends LinearOpMode {
     boolean bCurrState = false;
 
     // bLedOn represents the state of the LED.
-    boolean bLedOn = true;
+    boolean bLedOn = false;
 
     // get a reference to our DeviceInterfaceModule object.
     cdim = hardwareMap.deviceInterfaceModule.get("dim");
@@ -119,6 +119,8 @@ public class ColourSSesnor extends LinearOpMode {
     // loop and read the RGB data.
     // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
     while (opModeIsActive())  {
+      telemetry.update();
+      SleepHelper.waitMilliseconds(500);
 
       // check the status of the x button on gamepad.
       bCurrState = gamepad1.x;

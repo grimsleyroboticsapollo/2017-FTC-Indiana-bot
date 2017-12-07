@@ -60,6 +60,8 @@ public class HardwareIndianaBot
     public DcMotor  clawMotor = null;
     public Servo clawServo1 = null;
     public Servo clawServo2 = null;
+    public Servo clawServo6 = null;
+    public Servo clawServo80 = null;
 
     public static final double MID_SERVO       =  0.5 ;
     public static double OPEN_SERVO = 00.00;
@@ -111,6 +113,11 @@ public class HardwareIndianaBot
         clawServo2 = hwMap.get(Servo.class, "CLAU");
         clawServo2.setPosition(MID_SERVO);
 
+        clawServo6 = hwMap.get(Servo.class, "CLAOU");
+        clawServo6.setPosition(MID_SERVO);
+
+        clawServo80 = hwMap.get(Servo.class, "CLAOFKDFVNTFDS");
+        clawServo80.setPosition(MID_SERVO);
     }
  }
 
