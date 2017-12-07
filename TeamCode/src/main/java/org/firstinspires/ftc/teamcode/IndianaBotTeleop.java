@@ -122,7 +122,7 @@ public class IndianaBotTeleop extends OpMode {
         clawUp = gamepad2.x;
         clawDown = gamepad2.y;
         double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
-        double joySpeed = Math.sqrt( leftX * leftX + leftY * leftY );
+        double joySpeed = Math.sqrt(leftX * leftX + leftY * leftY);
         MotorHelper.drive(joystickAngle, joySpeed, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
 
         if (IN_DEBUG_MODE) {
@@ -155,8 +155,10 @@ public class IndianaBotTeleop extends OpMode {
             robot.clawServo2.setPosition(-.9);
             robot.clawServo6.setPosition(.9);
             robot.clawServo80.setPosition(-.9);
+
+            // TODO #JK careful, too much telemetry - only log once on change; I'll help you if you want
             telemetry.addData("CLAW", "open button has been pressed");
-        } else if (!clawOpen){
+        } else if (!clawOpen) {
             robot.clawServo1.setPosition(0.);
             robot.clawServo2.setPosition(0.);
             robot.clawServo6.setPosition(0.);
@@ -166,13 +168,13 @@ public class IndianaBotTeleop extends OpMode {
         if (clawUp) {
             MotorHelper.claw_Hand(robot.clawMotor, 1);
             telemetry.addData("CLAW", "up button has been pressed");
-        }else if (clawDown) {
+        } else if (clawDown) {
             MotorHelper.claw_Hand(robot.clawMotor, -1);
             telemetry.addData("CLAW", "down button has been pressed");
         } else {
             MotorHelper.claw_Hand(robot.clawMotor, 0);
         }
-}
+    }
 
     /*
      * Code to run ONCE after the driver hits STOP
