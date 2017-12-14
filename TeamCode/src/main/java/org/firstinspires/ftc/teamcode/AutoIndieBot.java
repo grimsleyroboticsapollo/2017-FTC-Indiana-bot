@@ -103,18 +103,18 @@ public class AutoIndieBot extends LinearOpMode {
             telemetry.update();
         }
 
-        // Step 2:  Spin right for 1.1 seconds
-        robot.leftFrontDrive.setPower(-1);
-        robot.leftBackDrive.setPower(1);
+        // Step 1:  Spin for 3 seconds
+        robot.leftFrontDrive.setPower(1);
+        robot.leftBackDrive.setPower(-1);
         robot.rightBackDrive.setPower(-1);
         robot.rightFrontDrive.setPower(1);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.1)) {
+        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
-        // Step 3:  Drive Backwards for 1 Second
+        // Step 2:  Drive for 5 Seconds
         robot.leftFrontDrive.setPower(1);
         robot.leftBackDrive.setPower(1);
         robot.rightBackDrive.setPower(1);
@@ -125,9 +125,8 @@ public class AutoIndieBot extends LinearOpMode {
             telemetry.update();
         }
 
-        // Step 4:  Stop and close the claw.
-        robot.leftFrontDrive.setPower(0);
-        robot.rightBackDrive.setPower(0);
+        // Step 3:  Open claw
+        robot.clawServo1.setPosition(.5);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
