@@ -128,6 +128,8 @@ public class AutoIndieBot extends LinearOpMode {
         // Step 3:  Open claw
         robot.clawServo1.setPosition(.5);
 
+        // Step 4: mov
+
         telemetry.addData("Path", "Complete");
         telemetry.update();
         sleep(1000);

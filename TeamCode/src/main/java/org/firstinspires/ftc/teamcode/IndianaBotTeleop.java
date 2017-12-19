@@ -113,6 +113,7 @@ public class IndianaBotTeleop extends OpMode {
         boolean clawOpen;
         boolean clawUp;
         boolean clawDown;
+        boolean clawDoThing;
         double debugSpeedMult = 1.;
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         leftX = gamepad1.left_stick_x;

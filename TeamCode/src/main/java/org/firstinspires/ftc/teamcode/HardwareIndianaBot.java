@@ -58,6 +58,9 @@ public class HardwareIndianaBot
     public DcMotor  rightFrontDrive  = null;
     public DcMotor  rightBackDrive  = null;
     public DcMotor  clawMotor = null;
+    public DcMotor  motor5 = null;
+    public DcMotor  motor6 = null;
+    public DcMotor  motor7 = null;
     public Servo clawServo1 = null;
     public Servo clawServo2 = null;
     public Servo clawServo6 = null;
@@ -86,7 +89,9 @@ public class HardwareIndianaBot
         rightFrontDrive = hwMap.get(DcMotor.class, "RFD");
         leftBackDrive = hwMap.get(DcMotor.class, "LBD");
         rightBackDrive = hwMap.get(DcMotor.class, "RBD");
-        clawMotor = hwMap.get(DcMotor.class, "MEMEMOTOR");
+        motor5 = hwMap.get(DcMotor.class, "TRASH");
+        motor6 = hwMap.get(DcMotor.class, "GARBAGE");
+        motor7 = hwMap.get(DcMotor.class, "AIDS");
 
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
