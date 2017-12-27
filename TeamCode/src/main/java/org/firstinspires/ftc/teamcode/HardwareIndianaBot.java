@@ -84,6 +84,20 @@ public class HardwareIndianaBot
         // Save reference to Hardware map
         hwMap = ahwMap;
 
+                       //X
+                        ///
+                      ////o/
+                     //o///o//
+                  ////o////o///
+                ///////o////////
+            //o////o/////////o////o/
+          //o////o//////o//////o/////
+                    /////
+
+        //Merry Christmas to the robotics club
+         // From the programming side
+
+
         // Define and Initialize Motors
         leftFrontDrive  = hwMap.get(DcMotor.class, "LFD");
         rightFrontDrive = hwMap.get(DcMotor.class, "RFD");

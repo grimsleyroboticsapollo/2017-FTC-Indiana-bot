@@ -85,50 +85,57 @@ public class AutoIndieBot extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
-        // Step 1:  GOOD STUFF
-        //if () {
-        //robot.leftFrontDrive.setPower(1);
-        //robot.leftBackDrive.setPower(1);
-    //} else if (){
-            //robot.leftFrontDrive.setPower(1);
-            //robot.leftBackDrive.setPower(1);
-        //} else {
-            //robot.leftFrontDrive.setPower(1);
-            //robot.leftBackDrive.setPower(1);
-        //}
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 4.1)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
+        // Step 1:  Spin for 1 seconds
 
-        // Step 1:  Spin for 3 seconds
         robot.leftFrontDrive.setPower(1);
         robot.leftBackDrive.setPower(-1);
         robot.rightBackDrive.setPower(-1);
         robot.rightFrontDrive.setPower(1);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
-            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
+        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
-        // Step 2:  Drive for 5 Seconds
+        // Step 2:  detect color
+
+        //// TODO: Apply color sensor code to autonomous code.
+
+        // Step 3:  spin back around
+
+        robot.leftFrontDrive.setPower(-1);
+        robot.leftBackDrive.setPower(1);
+        robot.rightBackDrive.setPower(1);
+        robot.rightFrontDrive.setPower(-1);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
+        // Step 4: move foward for 3.5 seconds
+
         robot.leftFrontDrive.setPower(1);
         robot.leftBackDrive.setPower(1);
         robot.rightBackDrive.setPower(1);
         robot.rightFrontDrive.setPower(1);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 5.0)) {
-            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
+        while (opModeIsActive() && (runtime.seconds() < 3.5)) {
+            telemetry.addData("Path", "Leg 4: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
-        // Step 3:  Open claw
-        robot.clawServo1.setPosition(.5);
+        // Step 5: Do the finishing spin
 
-        // Step 4: mov
+        robot.leftFrontDrive.setPower(1);
+        robot.leftBackDrive.setPower(-1);
+        robot.rightBackDrive.setPower(-1);
+        robot.rightFrontDrive.setPower(1);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 5.0)) {
+            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
