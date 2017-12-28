@@ -29,11 +29,11 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.util.Hardware;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
@@ -53,18 +53,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name = "MOTORBOT_TELEOP", group = "teleop")
+@TeleOp(name = "COLOR_test", group = "teleop")
 //@Disabled
-public class IndianaBotTeleop extends OpMode {
+public class ColorSensorTEST extends OpMode {
 
     //int. debug mode
     boolean IN_DEBUG_MODE = false;
 
     /* Declare OpMode members. */
-    HardwareIndianaBot robot = new HardwareIndianaBot(); // use the class created to define a Pushbot's hardware
-
-    //sensors
-    BNO055 imu;
+    ColorSensor sensorRGB;
+    // hsvValues is an array that will hold the hue, saturation, and value information.
+    float hsvValues[] = {0F,0F,0F};
 
     // State used for updating telemetry
     Orientation angles;
@@ -79,10 +78,10 @@ public class IndianaBotTeleop extends OpMode {
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
-        robot.init(hardwareMap);
+        sensorRGB = hardwareMap.colorSensor.get("sensor_color");
 
         // Send telemetry message to signify robot waiting;
-        String helloWorld = "YO, it's tyme to do the robet. Prez buton to stert!1!";
+        String helloWorld = "This is a Test Mode!";
         telemetry.addData("Say", helloWorld);    //
         TextReader.speak(hardwareMap.appContext, helloWorld);
     }
@@ -107,76 +106,14 @@ public class IndianaBotTeleop extends OpMode {
      */
     @Override
     public void loop() {
-        double leftX;
-        double rightX;
-        double leftY;
-        boolean clawOpen;
-        boolean clawUp;
-        boolean clawDown;
-        boolean clawDoThing;
-        double debugSpeedMult = 1.;
-        // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-        leftX = gamepad1.left_stick_x;
-        leftY = gamepad1.left_stick_y;
-        rightX = gamepad1.right_stick_x;
-        clawOpen = gamepad2.a;
-        clawUp = gamepad2.x;
-        clawDown = gamepad2.y;
-        double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
-        double joySpeed = Math.sqrt(leftX * leftX + leftY * leftY);
-        MotorHelper.drive(joystickAngle, joySpeed, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
+        Color.RGBToHSV((sensorRGB.red() * 255) / 800, (sensorRGB.green() * 255) / 800, (sensorRGB.blue() * 255) / 800, hsvValues);
 
-        if (IN_DEBUG_MODE) {
-            debugSpeedMult = DebugCode.speedMult(gamepad1);
-        } else {
-            IN_DEBUG_MODE = false;
-        }
-
-        //Debug mode
-        boolean debug;
-        debug = gamepad1.start;
-
-        if (debug) {
-            IN_DEBUG_MODE = true;
-            telemetry.addData("Say", "WARNING: THIS IS THE DEBUG MODE FOR THE ROBOT!");
-        }
-
-        // TODO the syntax for setting the servo position is:
-            /*
-            robot.clawServo.setPosition( <value> );
-
-            (check HardwareIndianaBot where it's initialized)
-            If you click into the setPosition method (into the Servo.java file) then the <value>
-            is documented as:
-
-            @param position the position to which the servo should move, a value in the range [0.0, 1.0]
-             */
-        if (clawOpen) {
-            robot.clawServo1.setPosition(.9);
-            robot.clawServo2.setPosition(-.9);
-            robot.clawServo6.setPosition(.9);
-            robot.clawServo80.setPosition(-.9);
-
-            // TODO #JK careful, too much telemetry - only log once on change; I'll help you if you want
-            telemetry.addData("CLAW", "open button has been pressed");
-        } else if (!clawOpen) {
-            robot.clawServo1.setPosition(0.);
-            robot.clawServo2.setPosition(0.);
-            robot.clawServo6.setPosition(0.);
-            robot.clawServo80.setPosition(0.);
-        }
-
-        if (clawUp) {
-            MotorHelper.claw_Hand(robot.clawMotor, 1);
-            telemetry.addData("CLAW", "up button has been pressed");
-        } else if (clawDown) {
-            MotorHelper.claw_Hand(robot.clawMotor, -1);
-            telemetry.addData("CLAW", "down button has been pressed");
-        } else {
-            MotorHelper.claw_Hand(robot.clawMotor, 0);
-        }
+        telemetry.addData("Red  ", sensorRGB.red());
+        telemetry.addData("Green", sensorRGB.green());
+        telemetry.addData("Blue ", sensorRGB.blue());
+        telemetry.addData("Hue", hsvValues[0]);
+        telemetry.addData("Current_time", System.currentTimeMillis());
     }
-
     /*
      * Code to run ONCE after the driver hits STOP
      */

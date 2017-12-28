@@ -58,14 +58,14 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Pushbot: Auto Drive By Time", group="Pushbot")
+@Autonomous(name="AUTO_MOTORBOT_RED", group="Pushbot")
 //@Disabled
-public class AutoIndieBot extends LinearOpMode {
+public class AutoIndieBotRed extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareIndianaBot         robot   = new HardwareIndianaBot();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
-
+    ColorSensor sensorRGB;
 
 
     @Override
@@ -76,8 +76,9 @@ public class AutoIndieBot extends LinearOpMode {
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
+        sensorRGB = hardwareMap.colorSensor.get("sensor_color");
 
-        ColourSSesnor ColorSenser;
+
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
@@ -99,7 +100,10 @@ public class AutoIndieBot extends LinearOpMode {
 
         // Step 2:  detect color
 
-        //// TODO: Apply color sensor code to autonomous code.
+        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
 
         // Step 3:  spin back around
 
