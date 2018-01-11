@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.Hardware;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
@@ -113,6 +114,7 @@ public class IndianaBotTeleop extends OpMode {
         boolean clawOpen;
         boolean clawUp;
         boolean clawDown;
+        boolean button;
         boolean clawDoThing;
         double debugSpeedMult = 1.;
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
@@ -120,11 +122,16 @@ public class IndianaBotTeleop extends OpMode {
         leftY = gamepad1.left_stick_y;
         rightX = gamepad1.right_stick_x;
         clawOpen = gamepad2.a;
+        button = gamepad2.b;
         clawUp = gamepad2.x;
         clawDown = gamepad2.y;
         double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
         double joySpeed = Math.sqrt(leftX * leftX + leftY * leftY);
         MotorHelper.drive(joystickAngle, joySpeed, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
+
+        if(button){
+            telemetry.addData("Say", "Button B pressed down.");
+        }
 
         if (IN_DEBUG_MODE) {
             debugSpeedMult = DebugCode.speedMult(gamepad1);
