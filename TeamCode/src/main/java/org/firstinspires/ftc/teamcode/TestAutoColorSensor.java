@@ -69,7 +69,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
  */
 @Autonomous(name = "Sensor: AdafruitRGB", group = "Sensor")
 @Disabled                            // Comment this out to add to the opmode list
-public class ColourSSesnor extends LinearOpMode {
+public class TestAutoColorSensor extends LinearOpMode {
 
   ColorSensor sensorRGB;
   DeviceInterfaceModule cdim;

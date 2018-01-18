@@ -35,35 +35,18 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
- * This file illustrates the concept of driving a path based on time.
- * It uses the common Pushbot hardware class to define the drive on the robot.
- * The code is structured as a LinearOpMode
- *
- * The code assumes that you do NOT have encoders on the wheels,
- *   otherwise you would use: PushbotAutoDriveByEncoder;
- *
- *   The desired path in this example is:
- *   - Drive forward for 3 seconds
- *   - Spin right for 1.3 seconds
- *   - Drive Backwards for 1 Second
- *   - Stop and close the claw.
- *
- *  The code is written in a simple form with no optimizations.
- *  However, there are several ways that this type of sequence could be streamlined,
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ * Autonomous when on the BLUE alliance
+ * <p>
+ * TODO implement
  */
-
-@Autonomous(name="AUTO_MOTORBOT_BLUE", group="Pushbot")
+@Autonomous(name = "AUTO_MOTORBOT_BLUE", group = "Pushbot")
 //@Disabled
 public class AutoIndieBotBlue extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareIndianaBot         robot   = new HardwareIndianaBot();   // Use a Pushbot's hardware
-    private ElapsedTime     runtime = new ElapsedTime();
-
-
+    HardwareIndianaBot robot = new HardwareIndianaBot();   // Use a Pushbot's hardware
+    private ElapsedTime runtime = new ElapsedTime();
+    ColorSensor sensorRGB;
 
     @Override
     public void runOpMode() {
@@ -74,20 +57,33 @@ public class AutoIndieBotBlue extends LinearOpMode {
          */
         robot.init(hardwareMap);
 
-        ColourSSesnor ColorSenser;
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Ready to run");    //
+        sensorRGB = hardwareMap.colorSensor.get("sensor_color");
+
+        String helloWorld = "Autonomous Blue Alliance. Go Blue!";
+        telemetry.addData("Say", helloWorld);    //
+        TextReader.speak(hardwareMap.appContext, helloWorld);
+
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step 1:  Spin for 1 seconds
+        // Step 1: Drive forward for one second
+
+        /*
+        Don't do this (drive individual motors:
 
         robot.leftFrontDrive.setPower(1);
         robot.leftBackDrive.setPower(-1);
         robot.rightBackDrive.setPower(-1);
         robot.rightFrontDrive.setPower(1);
+
+        Do the following instead (use our MotorHelper)
+         */
+
+        // Move forward (angle=0) at half speed (driveSpeed=0.5) without spinning (turnOnTheSpotSpeed=0):
+        MotorHelper.drive(0, 0.5, 0, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
+
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 1.0)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
@@ -96,43 +92,11 @@ public class AutoIndieBotBlue extends LinearOpMode {
 
         // Step 2:  detect color
 
-        //// TODO: Apply color sensor code to autonomous code.
+        // TODO: Apply color sensor code to autonomous code.
 
-        // Step 3:  spin back around
+        // Step 3:  TODO (figure it out - MotorHelper( .... what? ... ), claw servos maybe?
 
-        robot.leftFrontDrive.setPower(-1);
-        robot.leftBackDrive.setPower(1);
-        robot.rightBackDrive.setPower(1);
-        robot.rightFrontDrive.setPower(-1);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
-            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-
-        // Step 4: move foward for 3.5 seconds
-
-        robot.leftFrontDrive.setPower(1);
-        robot.leftBackDrive.setPower(1);
-        robot.rightBackDrive.setPower(1);
-        robot.rightFrontDrive.setPower(1);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 3.5)) {
-            telemetry.addData("Path", "Leg 4: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-
-        // Step 5: Do the finishing spin
-
-        robot.leftFrontDrive.setPower(1);
-        robot.leftBackDrive.setPower(-1);
-        robot.rightBackDrive.setPower(-1);
-        robot.rightFrontDrive.setPower(1);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 5.0)) {
-            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
+        // TODO #JK do it!
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

@@ -51,16 +51,17 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Servo channel:  Servo to open right claw: "right_hand"
  */
 public class HardwareIndianaBot {
+
     /* Public OpMode members. */
     public DcMotor leftFrontDrive = null;
     public DcMotor leftBackDrive = null;
     public DcMotor rightFrontDrive = null;
     public DcMotor rightBackDrive = null;
-    public DcMotor clawMotor = null; // TODO #JK this variable is never mapped to a motor
-    public DcMotor motor5 = null; // TODO #JK I see the mapping to nonsense names, but no usage
-    public DcMotor motor6 = null; // TODO #JK same here
-    public DcMotor motor7 = null; // TODO #JK same here
-    public Servo clawServoLeft1 = null;
+    public DcMotor clawMotor = null; // TODO #JK this variable is never mapped to a motor (big problem)
+    public DcMotor motor5 = null; // TODO #JK I see the mapping to nonsense names, but no usage; give meaningful variable name
+    public DcMotor motor6 = null; // TODO #JK same here -"-
+    public DcMotor motor7 = null; // TODO #JK same here -"-
+    public Servo clawServoLeft1 = null; // TODO #JK please label the servos (or document somewhere) which is 1 or 2
     public Servo clawServoLeft2 = null;
     public Servo clawServoRight1 = null;
     public Servo clawServoRight2 = null;
@@ -88,6 +89,7 @@ public class HardwareIndianaBot {
         rightFrontDrive = hwMap.get(DcMotor.class, "RFD");
         leftBackDrive = hwMap.get(DcMotor.class, "LBD");
         rightBackDrive = hwMap.get(DcMotor.class, "RBD");
+        // TODO #JK I would expect a mapping for clawMotor here
         motor5 = hwMap.get(DcMotor.class, "TRASH"); // TODO #JK what is this?
         motor6 = hwMap.get(DcMotor.class, "GARBAGE"); // TODO #JK ?
         motor7 = hwMap.get(DcMotor.class, "AIDS"); // TODO #JK ???

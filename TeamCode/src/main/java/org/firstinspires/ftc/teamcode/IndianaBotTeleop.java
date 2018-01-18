@@ -36,20 +36,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 /**
- * This file provides basic Telop driving for a Pushbot robot.
- * The code is structured as an Iterative OpMode
- * <p>
- * This OpMode uses the common Pushbot hardware class to define the devices on the robot.
- * All device access is managed through the HardwarePushbot class.
- * <p>
- * This particular OpMode executes a basic Tank Drive Teleop for a PushBot
- * It raises and lowers the claw using the Gampad Y and A buttons respectively.
- * It also opens and closes the claws slowly using the left and right Bumper buttons.
- * <p>
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ * Team 3391 Neptune - primary TELEOP
  */
-
 @TeleOp(name = "MOTORBOT_TELEOP", group = "teleop")
 //@Disabled
 public class IndianaBotTeleop extends OpMode {
@@ -60,13 +48,12 @@ public class IndianaBotTeleop extends OpMode {
     /* Declare OpMode members. */
     HardwareIndianaBot robot = new HardwareIndianaBot(); // use the class created to define a Pushbot's hardware
 
-    //sensors
+    // Gyro sensor
     BNO055 imu;
 
     // State used for updating telemetry
     Orientation angles;
     Acceleration gravity;
-
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -89,7 +76,8 @@ public class IndianaBotTeleop extends OpMode {
      */
     @Override
     public void init_loop() {
-
+        // TODO #JK if we're using the gyro, then here would be where we would determine
+        // TODO #JK its initial position through a moving exponential average.
     }
 
     /*
@@ -104,38 +92,34 @@ public class IndianaBotTeleop extends OpMode {
      */
     @Override
     public void loop() {
+
         double leftX;
         double rightX;
         double leftY;
         boolean clawOpen;
         boolean clawUp;
         boolean clawDown;
-        boolean button;
         boolean clawDoThing;
-        double debugSpeedMult = 1.;
-        // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
+        double debugSpeedMult = 1.; // TODO #JK remove the "debug" but make a real "speedMult" variable
+
         leftX = gamepad1.left_stick_x;
         leftY = gamepad1.left_stick_y;
         rightX = gamepad1.right_stick_x;
         clawOpen = gamepad2.a;
-        button = gamepad2.b;
         clawUp = gamepad2.x;
         clawDown = gamepad2.y;
         double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
         double joySpeed = Math.sqrt(leftX * leftX + leftY * leftY);
         MotorHelper.drive(joystickAngle, joySpeed, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
 
-        if(button){
-            telemetry.addData("Say", "Button B pressed down.");
-        }
-
         if (IN_DEBUG_MODE) {
+            // TODO #JK the "debugSpeedMult" factor is good, you can move this out of temporary code and make it permanent
             debugSpeedMult = DebugCode.speedMult(gamepad1);
         } else {
             IN_DEBUG_MODE = false;
         }
 
-        //Debug mode
+        // Debug mode
         boolean debug;
         debug = gamepad1.start;
 
@@ -144,16 +128,6 @@ public class IndianaBotTeleop extends OpMode {
             telemetry.addData("Say", "WARNING: THIS IS THE DEBUG MODE FOR THE ROBOT!");
         }
 
-        // TODO the syntax for setting the servo position is:
-            /*
-            robot.clawServo.setPosition( <value> );
-
-            (check HardwareIndianaBot where it's initialized)
-            If you click into the setPosition method (into the Servo.java file) then the <value>
-            is documented as:
-
-            @param position the position to which the servo should move, a value in the range [0.0, 1.0]
-             */
         if (clawOpen) {
             robot.clawServoLeft1.setPosition(.9);
             robot.clawServoRight1.setPosition(-.9);
@@ -168,11 +142,13 @@ public class IndianaBotTeleop extends OpMode {
             robot.clawServoRight2.setPosition(0.);
         }
 
+        // TODO #JK because clawMotor is never mapped (in HardwareIndianaBot.java) the following lines will error out
+        // TODO #JK (they will throw a NullPointerException, stopping program execution). Fix this in HardwareIndianaBot.java
         if (clawUp) {
-            MotorHelper.claw_Hand(robot.clawMotor, 1);
+            MotorHelper.claw_Hand(robot.clawMotor, 1); // TODO #JK factor in the speedMult function also
             telemetry.addData("CLAW", "up button has been pressed");
         } else if (clawDown) {
-            MotorHelper.claw_Hand(robot.clawMotor, -1);
+            MotorHelper.claw_Hand(robot.clawMotor, -1); // TODO #JK factor in the speedMult function also
             telemetry.addData("CLAW", "down button has been pressed");
         } else {
             MotorHelper.claw_Hand(robot.clawMotor, 0);
@@ -184,6 +160,8 @@ public class IndianaBotTeleop extends OpMode {
      */
     @Override
     public void stop() {
-
+        // stop the robot
+        MotorHelper.drive(0, 0, 0, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
+        MotorHelper.claw_Hand(robot.clawMotor, 0);
     }
 }
