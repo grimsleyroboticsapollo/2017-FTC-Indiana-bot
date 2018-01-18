@@ -29,8 +29,6 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import android.hardware.Sensor;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -38,46 +36,45 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * This is NOT an opmode.
- *
+ * <p>
  * This class can be used to define all the specific hardware for a single robot.
  * In this case that robot is a Pushbot.
  * See PushbotTeleopTank_Iterative and others classes starting with "Pushbot" for usage examples.
- *
+ * <p>
  * This hardware class assumes the following device names have been configured on the robot:
  * Note:  All names are lower case and some have single spaces between words.
- *
+ * <p>
  * Motor channel:  Left  drive motor:        "left_drive"
  * Motor channel:  Right drive motor:        "right_drive"
  * Motor channel:  Manipulator drive motor:  "left_arm"
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
-public class HardwareIndianaBot
-{
+public class HardwareIndianaBot {
     /* Public OpMode members. */
-    public DcMotor  leftFrontDrive   = null;
-    public DcMotor  leftBackDrive   = null;
-    public DcMotor  rightFrontDrive  = null;
-    public DcMotor  rightBackDrive  = null;
-    public DcMotor  clawMotor = null;
-    public DcMotor  motor5 = null;
-    public DcMotor  motor6 = null;
-    public DcMotor  motor7 = null;
-    public Servo clawServo1 = null;
-    public Servo clawServo2 = null;
-    public Servo clawServo6 = null;
-    public Servo clawServo80 = null;
+    public DcMotor leftFrontDrive = null;
+    public DcMotor leftBackDrive = null;
+    public DcMotor rightFrontDrive = null;
+    public DcMotor rightBackDrive = null;
+    public DcMotor clawMotor = null; // TODO #JK this variable is never mapped to a motor
+    public DcMotor motor5 = null; // TODO #JK I see the mapping to nonsense names, but no usage
+    public DcMotor motor6 = null; // TODO #JK same here
+    public DcMotor motor7 = null; // TODO #JK same here
+    public Servo clawServoLeft1 = null;
+    public Servo clawServoLeft2 = null;
+    public Servo clawServoRight1 = null;
+    public Servo clawServoRight2 = null;
 
-    public static final double MID_SERVO       =  0.5 ;
+    public static final double MID_SERVO = 0.5;
     public static double OPEN_SERVO = 00.00;
     public static double CLOSE_SERVO = 0.;
 
     /* local OpMode members. */
-    HardwareMap hwMap           =  null;
-    private ElapsedTime period  = new ElapsedTime();
+    HardwareMap hwMap = null;
+    private ElapsedTime period = new ElapsedTime();
 
     /* Constructor */
-    public HardwareIndianaBot(){
+    public HardwareIndianaBot() {
 
     }
 
@@ -86,28 +83,14 @@ public class HardwareIndianaBot
         // Save reference to Hardware map
         hwMap = ahwMap;
 
-                       //X
-                        ///
-                      ////o/
-                     //o///o//
-                  ////o////o///
-                ///////o////////
-            //o////o/////////o////o/
-          //o////o//////o//////o/////
-                    /////
-
-        //Merry Christmas to the robotics club
-         // From the programming side
-
-
         // Define and Initialize Motors
-        leftFrontDrive  = hwMap.get(DcMotor.class, "LFD");
+        leftFrontDrive = hwMap.get(DcMotor.class, "LFD");
         rightFrontDrive = hwMap.get(DcMotor.class, "RFD");
         leftBackDrive = hwMap.get(DcMotor.class, "LBD");
         rightBackDrive = hwMap.get(DcMotor.class, "RBD");
-        motor5 = hwMap.get(DcMotor.class, "TRASH");
-        motor6 = hwMap.get(DcMotor.class, "GARBAGE");
-        motor7 = hwMap.get(DcMotor.class, "AIDS");
+        motor5 = hwMap.get(DcMotor.class, "TRASH"); // TODO #JK what is this?
+        motor6 = hwMap.get(DcMotor.class, "GARBAGE"); // TODO #JK ?
+        motor7 = hwMap.get(DcMotor.class, "AIDS"); // TODO #JK ???
 
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -128,17 +111,17 @@ public class HardwareIndianaBot
         rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
-        clawServo1 = hwMap.get(Servo.class, "CLAW");
-        clawServo1.setPosition(MID_SERVO);
+        clawServoLeft1 = hwMap.get(Servo.class, "CLAW"); // TODO #JK this is not descriptive as to which servo it is
+        clawServoLeft1.setPosition(MID_SERVO);
 
-        clawServo2 = hwMap.get(Servo.class, "CLAU");
-        clawServo2.setPosition(MID_SERVO);
+        clawServoRight1 = hwMap.get(Servo.class, "CLAU"); // TODO #JK what does "U" stand for?
+        clawServoRight1.setPosition(MID_SERVO);
 
-        clawServo6 = hwMap.get(Servo.class, "CLAOU");
-        clawServo6.setPosition(MID_SERVO);
+        clawServoLeft2 = hwMap.get(Servo.class, "CLAOU"); // TODO #JK don't know
+        clawServoLeft2.setPosition(MID_SERVO);
 
-        clawServo80 = hwMap.get(Servo.class, "CLAOFKDFVNTFDS");
-        clawServo80.setPosition(MID_SERVO);
+        clawServoRight2 = hwMap.get(Servo.class, "CLAOFKDFVNTFDS"); // TODO #JK ??
+        clawServoRight2.setPosition(MID_SERVO);
     }
- }
+}
 

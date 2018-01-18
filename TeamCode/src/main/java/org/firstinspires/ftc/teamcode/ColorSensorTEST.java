@@ -63,7 +63,7 @@ public class ColorSensorTEST extends OpMode {
     /* Declare OpMode members. */
     ColorSensor sensorRGB;
     // hsvValues is an array that will hold the hue, saturation, and value information.
-    float hsvValues[] = {0F,0F,0F};
+    float hsvValues[] = {0F, 0F, 0F};
 
     // State used for updating telemetry
     Orientation angles;
@@ -114,6 +114,7 @@ public class ColorSensorTEST extends OpMode {
         telemetry.addData("Hue", hsvValues[0]);
         telemetry.addData("Current_time", System.currentTimeMillis());
     }
+
     /*
      * Code to run ONCE after the driver hits STOP
      */

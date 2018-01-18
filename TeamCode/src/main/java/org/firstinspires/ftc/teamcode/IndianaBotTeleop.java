@@ -31,11 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.util.Hardware;
-import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
@@ -159,18 +155,17 @@ public class IndianaBotTeleop extends OpMode {
             @param position the position to which the servo should move, a value in the range [0.0, 1.0]
              */
         if (clawOpen) {
-            robot.clawServo1.setPosition(.9);
-            robot.clawServo2.setPosition(-.9);
-            robot.clawServo6.setPosition(.9);
-            robot.clawServo80.setPosition(-.9);
+            robot.clawServoLeft1.setPosition(.9);
+            robot.clawServoRight1.setPosition(-.9);
+            robot.clawServoLeft2.setPosition(.9);
+            robot.clawServoRight2.setPosition(-.9);
 
-            // TODO #JK careful, too much telemetry - only log once on change; I'll help you if you want
             telemetry.addData("CLAW", "open button has been pressed");
         } else if (!clawOpen) {
-            robot.clawServo1.setPosition(0.);
-            robot.clawServo2.setPosition(0.);
-            robot.clawServo6.setPosition(0.);
-            robot.clawServo80.setPosition(0.);
+            robot.clawServoLeft1.setPosition(0.);
+            robot.clawServoRight1.setPosition(0.);
+            robot.clawServoLeft2.setPosition(0.);
+            robot.clawServoRight2.setPosition(0.);
         }
 
         if (clawUp) {
