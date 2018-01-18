@@ -59,7 +59,7 @@ public class AutoIndieBotRed extends LinearOpMode {
 
         sensorRGB = hardwareMap.colorSensor.get("sensor_color");
 
-        String helloWorld = "Autonomous Blue Alliance. Go Blue!";
+        String helloWorld = "Autonomous Red Alliance. Go Red!";
         telemetry.addData("Say", helloWorld);    //
         TextReader.speak(hardwareMap.appContext, helloWorld);
 
@@ -93,6 +93,16 @@ public class AutoIndieBotRed extends LinearOpMode {
         // Step 2:  detect color
 
         // TODO: Apply color sensor code to autonomous code.
+
+        /*
+        Color.RGBToHSV((sensorRGB.red() * 255) / 800, (sensorRGB.green() * 255) / 800, (sensorRGB.blue() * 255) / 800, hsvValues);
+
+        telemetry.addData("Red  ", sensorRGB.red());
+        telemetry.addData("Green", sensorRGB.green());
+        telemetry.addData("Blue ", sensorRGB.blue());
+        telemetry.addData("Hue", hsvValues[0]);
+        telemetry.addData("Current_time", System.currentTimeMillis());
+        */
 
         // Step 3:  TODO (figure it out - MotorHelper( .... what? ... ), claw servos maybe?
 

@@ -48,12 +48,18 @@ public class IndianaBotTeleop extends OpMode {
     /* Declare OpMode members. */
     HardwareIndianaBot robot = new HardwareIndianaBot(); // use the class created to define a Pushbot's hardware
 
+    /*
+    Let's not worry about the gyro until we have an otherwise working robot.
+
     // Gyro sensor
-    BNO055 imu;
+    // The IMU sensor object
+    BNO055IMU imu;
 
     // State used for updating telemetry
     Orientation angles;
     Acceleration gravity;
+
+     */
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -99,7 +105,7 @@ public class IndianaBotTeleop extends OpMode {
         boolean clawOpen;
         boolean clawUp;
         boolean clawDown;
-        boolean clawDoThing;
+        boolean clawDoThing; // TODO #JK I think this can be removed.
         double debugSpeedMult = 1.; // TODO #JK remove the "debug" but make a real "speedMult" variable
 
         leftX = gamepad1.left_stick_x;

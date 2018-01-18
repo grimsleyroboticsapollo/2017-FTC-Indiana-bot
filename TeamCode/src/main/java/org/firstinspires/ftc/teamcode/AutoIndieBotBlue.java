@@ -94,6 +94,16 @@ public class AutoIndieBotBlue extends LinearOpMode {
 
         // TODO: Apply color sensor code to autonomous code.
 
+        /*
+        Color.RGBToHSV((sensorRGB.red() * 255) / 800, (sensorRGB.green() * 255) / 800, (sensorRGB.blue() * 255) / 800, hsvValues);
+
+        telemetry.addData("Red  ", sensorRGB.red());
+        telemetry.addData("Green", sensorRGB.green());
+        telemetry.addData("Blue ", sensorRGB.blue());
+        telemetry.addData("Hue", hsvValues[0]);
+        telemetry.addData("Current_time", System.currentTimeMillis());
+         */
+
         // Step 3:  TODO (figure it out - MotorHelper( .... what? ... ), claw servos maybe?
 
         // TODO #JK do it!

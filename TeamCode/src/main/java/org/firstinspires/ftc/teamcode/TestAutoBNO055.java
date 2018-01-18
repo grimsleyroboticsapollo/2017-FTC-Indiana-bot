@@ -47,7 +47,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import java.util.Locale;
 
 /**
- * {@link BNO055} gives a short demo on how to use the BNO055 Inertial Motion Unit (IMU) from AdaFruit.
+ * {@link TestAutoBNO055} gives a short demo on how to use the BNO055 Inertial Motion Unit (IMU) from AdaFruit.
  *
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
@@ -56,7 +56,7 @@ import java.util.Locale;
  */
 @Autonomous(name = "Sensor: BNO055 IMU", group = "Sensor")
 @Disabled                            // Comment this out to add to the opmode list
-public class BNO055 extends LinearOpMode
+public class TestAutoBNO055 extends LinearOpMode
     {
     //----------------------------------------------------------------------------------------------
     // State
