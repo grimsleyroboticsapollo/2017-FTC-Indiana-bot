@@ -105,8 +105,8 @@ public class IndianaBotTeleop extends OpMode {
         boolean clawOpen;
         boolean clawUp;
         boolean clawDown;
-        boolean clawDoThing; // TODO #JK I think this can be removed.
-        double debugSpeedMult = 1.; // TODO #JK remove the "debug" but make a real "speedMult" variable
+        double speedMult1;
+        double speedMult2;
 
         leftX = gamepad1.left_stick_x;
         leftY = gamepad1.left_stick_y;
@@ -116,23 +116,14 @@ public class IndianaBotTeleop extends OpMode {
         clawDown = gamepad2.y;
         double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
         double joySpeed = Math.sqrt(leftX * leftX + leftY * leftY);
-        MotorHelper.drive(joystickAngle, joySpeed, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
+        double leftTrigger1 = gamepad1.left_trigger;
+        double rightTrigger1 = gamepad1.right_trigger;
+        double leftTrigger2 = gamepad2.left_trigger;
+        double rightTrigger2 = gamepad2.right_trigger;
 
-        if (IN_DEBUG_MODE) {
-            // TODO #JK the "debugSpeedMult" factor is good, you can move this out of temporary code and make it permanent
-            debugSpeedMult = DebugCode.speedMult(gamepad1);
-        } else {
-            IN_DEBUG_MODE = false;
-        }
-
-        // Debug mode
-        boolean debug;
-        debug = gamepad1.start;
-
-        if (debug) {
-            IN_DEBUG_MODE = true;
-            telemetry.addData("Say", "WARNING: THIS IS THE DEBUG MODE FOR THE ROBOT!");
-        }
+        speedMult1 = 1. + rightTrigger1 - leftTrigger1 / 2.;
+        speedMult2 = 1. + rightTrigger2 - leftTrigger2 / 2.;
+        MotorHelper.drive(joystickAngle, joySpeed * speedMult1, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
 
         if (clawOpen) {
             robot.clawServoLeft1.setPosition(.9);
@@ -147,14 +138,11 @@ public class IndianaBotTeleop extends OpMode {
             robot.clawServoLeft2.setPosition(0.);
             robot.clawServoRight2.setPosition(0.);
         }
-
-        // TODO #JK because clawMotor is never mapped (in HardwareIndianaBot.java) the following lines will error out
-        // TODO #JK (they will throw a NullPointerException, stopping program execution). Fix this in HardwareIndianaBot.java
         if (clawUp) {
-            MotorHelper.claw_Hand(robot.clawMotor, 1); // TODO #JK factor in the speedMult function also
+            MotorHelper.claw_Hand(robot.clawMotor, speedMult2); 
             telemetry.addData("CLAW", "up button has been pressed");
         } else if (clawDown) {
-            MotorHelper.claw_Hand(robot.clawMotor, -1); // TODO #JK factor in the speedMult function also
+            MotorHelper.claw_Hand(robot.clawMotor, -speedMult2);
             telemetry.addData("CLAW", "down button has been pressed");
         } else {
             MotorHelper.claw_Hand(robot.clawMotor, 0);

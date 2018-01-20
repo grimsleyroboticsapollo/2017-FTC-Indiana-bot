@@ -57,11 +57,11 @@ public class HardwareIndianaBot {
     public DcMotor leftBackDrive = null;
     public DcMotor rightFrontDrive = null;
     public DcMotor rightBackDrive = null;
-    public DcMotor clawMotor = null; // TODO #JK this variable is never mapped to a motor (big problem)
-    public DcMotor motor5 = null; // TODO #JK I see the mapping to nonsense names, but no usage; give meaningful variable name
+    public DcMotor clawMotor = null;
+    public DcMotor motor5 = null; // TODO #JK give meaningful name once used
     public DcMotor motor6 = null; // TODO #JK same here -"-
     public DcMotor motor7 = null; // TODO #JK same here -"-
-    public Servo clawServoLeft1 = null; // TODO #JK please label the servos (or document somewhere) which is 1 or 2
+    public Servo clawServoLeft1 = null;
     public Servo clawServoLeft2 = null;
     public Servo clawServoRight1 = null;
     public Servo clawServoRight2 = null;
@@ -89,10 +89,11 @@ public class HardwareIndianaBot {
         rightFrontDrive = hwMap.get(DcMotor.class, "RFD");
         leftBackDrive = hwMap.get(DcMotor.class, "LBD");
         rightBackDrive = hwMap.get(DcMotor.class, "RBD");
-        // TODO #JK I would expect a mapping for clawMotor here
-        motor5 = hwMap.get(DcMotor.class, "TRASH"); // TODO #JK what is this?
-        motor6 = hwMap.get(DcMotor.class, "GARBAGE"); // TODO #JK ?
-        motor7 = hwMap.get(DcMotor.class, "AIDS"); // TODO #JK ???
+        clawMotor = hwMap.get(DcMotor.class, "CLAW");
+
+        motor5 = hwMap.get(DcMotor.class, "5");
+        motor6 = hwMap.get(DcMotor.class, "6");
+        motor7 = hwMap.get(DcMotor.class, "7");
 
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -113,16 +114,16 @@ public class HardwareIndianaBot {
         rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
-        clawServoLeft1 = hwMap.get(Servo.class, "CLAW"); // TODO #JK this is not descriptive as to which servo it is
+        clawServoLeft1 = hwMap.get(Servo.class, "CLAWL1");
         clawServoLeft1.setPosition(MID_SERVO);
 
-        clawServoRight1 = hwMap.get(Servo.class, "CLAU"); // TODO #JK what does "U" stand for?
+        clawServoRight1 = hwMap.get(Servo.class, "CLAWR1");
         clawServoRight1.setPosition(MID_SERVO);
 
-        clawServoLeft2 = hwMap.get(Servo.class, "CLAOU"); // TODO #JK don't know
+        clawServoLeft2 = hwMap.get(Servo.class, "CLAWL2");
         clawServoLeft2.setPosition(MID_SERVO);
 
-        clawServoRight2 = hwMap.get(Servo.class, "CLAOFKDFVNTFDS"); // TODO #JK ??
+        clawServoRight2 = hwMap.get(Servo.class, "CLAWR2");
         clawServoRight2.setPosition(MID_SERVO);
     }
 }
