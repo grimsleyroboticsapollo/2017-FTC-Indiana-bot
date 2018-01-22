@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
- * Created by aidan on 10/7/2017.
+ * TODO #JK this calculation works, make it part of the main program and implement a speedMult variable there.
  */
 
 public class DebugCode {

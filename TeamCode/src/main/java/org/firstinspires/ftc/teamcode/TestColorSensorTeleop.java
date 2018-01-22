@@ -55,7 +55,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @TeleOp(name = "COLOR_test", group = "teleop")
 //@Disabled
-public class ColorSensorTEST extends OpMode {
+public class TestColorSensorTeleop extends OpMode {
 
     //int. debug mode
     boolean IN_DEBUG_MODE = false;
@@ -63,7 +63,7 @@ public class ColorSensorTEST extends OpMode {
     /* Declare OpMode members. */
     ColorSensor sensorRGB;
     // hsvValues is an array that will hold the hue, saturation, and value information.
-    float hsvValues[] = {0F,0F,0F};
+    float hsvValues[] = {0F, 0F, 0F};
 
     // State used for updating telemetry
     Orientation angles;
@@ -81,7 +81,7 @@ public class ColorSensorTEST extends OpMode {
         sensorRGB = hardwareMap.colorSensor.get("sensor_color");
 
         // Send telemetry message to signify robot waiting;
-        String helloWorld = "This is a Test Mode!";
+        String helloWorld = "Test Color Sensor Tele Op";
         telemetry.addData("Say", helloWorld);    //
         TextReader.speak(hardwareMap.appContext, helloWorld);
     }
@@ -114,6 +114,7 @@ public class ColorSensorTEST extends OpMode {
         telemetry.addData("Hue", hsvValues[0]);
         telemetry.addData("Current_time", System.currentTimeMillis());
     }
+
     /*
      * Code to run ONCE after the driver hits STOP
      */

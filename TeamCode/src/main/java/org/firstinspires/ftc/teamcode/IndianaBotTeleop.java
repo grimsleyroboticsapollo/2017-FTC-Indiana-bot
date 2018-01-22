@@ -31,29 +31,13 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.util.Hardware;
-import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 /**
- * This file provides basic Telop driving for a Pushbot robot.
- * The code is structured as an Iterative OpMode
- * <p>
- * This OpMode uses the common Pushbot hardware class to define the devices on the robot.
- * All device access is managed through the HardwarePushbot class.
- * <p>
- * This particular OpMode executes a basic Tank Drive Teleop for a PushBot
- * It raises and lowers the claw using the Gampad Y and A buttons respectively.
- * It also opens and closes the claws slowly using the left and right Bumper buttons.
- * <p>
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ * Team 3391 Neptune - primary TELEOP
  */
-
 @TeleOp(name = "MOTORBOT_TELEOP", group = "teleop")
 //@Disabled
 public class IndianaBotTeleop extends OpMode {
@@ -64,13 +48,18 @@ public class IndianaBotTeleop extends OpMode {
     /* Declare OpMode members. */
     HardwareIndianaBot robot = new HardwareIndianaBot(); // use the class created to define a Pushbot's hardware
 
-    //sensors
-    BNO055 imu;
+    /*
+    Let's not worry about the gyro until we have an otherwise working robot.
+
+    // Gyro sensor
+    // The IMU sensor object
+    BNO055IMU imu;
 
     // State used for updating telemetry
     Orientation angles;
     Acceleration gravity;
 
+     */
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -93,7 +82,8 @@ public class IndianaBotTeleop extends OpMode {
      */
     @Override
     public void init_loop() {
-
+        // TODO #JK if we're using the gyro, then here would be where we would determine
+        // TODO #JK its initial position through a moving exponential average.
     }
 
     /*
@@ -108,76 +98,51 @@ public class IndianaBotTeleop extends OpMode {
      */
     @Override
     public void loop() {
+
         double leftX;
         double rightX;
         double leftY;
         boolean clawOpen;
         boolean clawUp;
         boolean clawDown;
-        boolean button;
-        boolean clawDoThing;
-        double debugSpeedMult = 1.;
-        // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
+        double speedMult1;
+        double speedMult2;
+
         leftX = gamepad1.left_stick_x;
         leftY = gamepad1.left_stick_y;
         rightX = gamepad1.right_stick_x;
         clawOpen = gamepad2.a;
-        button = gamepad2.b;
         clawUp = gamepad2.x;
         clawDown = gamepad2.y;
         double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
         double joySpeed = Math.sqrt(leftX * leftX + leftY * leftY);
-        MotorHelper.drive(joystickAngle, joySpeed, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
+        double leftTrigger1 = gamepad1.left_trigger;
+        double rightTrigger1 = gamepad1.right_trigger;
+        double leftTrigger2 = gamepad2.left_trigger;
+        double rightTrigger2 = gamepad2.right_trigger;
 
-        if(button){
-            telemetry.addData("Say", "Button B pressed down.");
-        }
+        speedMult1 = 1. + rightTrigger1 - leftTrigger1 / 2.;
+        speedMult2 = 1. + rightTrigger2 - leftTrigger2 / 2.;
+        MotorHelper.drive(joystickAngle, joySpeed * speedMult1, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
 
-        if (IN_DEBUG_MODE) {
-            debugSpeedMult = DebugCode.speedMult(gamepad1);
-        } else {
-            IN_DEBUG_MODE = false;
-        }
-
-        //Debug mode
-        boolean debug;
-        debug = gamepad1.start;
-
-        if (debug) {
-            IN_DEBUG_MODE = true;
-            telemetry.addData("Say", "WARNING: THIS IS THE DEBUG MODE FOR THE ROBOT!");
-        }
-
-        // TODO the syntax for setting the servo position is:
-            /*
-            robot.clawServo.setPosition( <value> );
-
-            (check HardwareIndianaBot where it's initialized)
-            If you click into the setPosition method (into the Servo.java file) then the <value>
-            is documented as:
-
-            @param position the position to which the servo should move, a value in the range [0.0, 1.0]
-             */
         if (clawOpen) {
-            robot.clawServo1.setPosition(.9);
-            robot.clawServo2.setPosition(-.9);
-            robot.clawServo6.setPosition(.9);
-            robot.clawServo80.setPosition(-.9);
+            robot.clawServoLeft1.setPosition(.9);
+            robot.clawServoRight1.setPosition(-.9);
+            robot.clawServoLeft2.setPosition(.9);
+            robot.clawServoRight2.setPosition(-.9);
 
-            // TODO #JK careful, too much telemetry - only log once on change; I'll help you if you want
             telemetry.addData("CLAW", "open button has been pressed");
         } else if (!clawOpen) {
-            robot.clawServo1.setPosition(0.);
-            robot.clawServo2.setPosition(0.);
-            robot.clawServo6.setPosition(0.);
-            robot.clawServo80.setPosition(0.);
+            robot.clawServoLeft1.setPosition(0.);
+            robot.clawServoRight1.setPosition(0.);
+            robot.clawServoLeft2.setPosition(0.);
+            robot.clawServoRight2.setPosition(0.);
         }
-
         if (clawUp) {
-            MotorHelper.claw_Hand(robot.clawMotor, 1);
+            MotorHelper.claw_Hand(robot.clawMotor, speedMult2); 
             telemetry.addData("CLAW", "up button has been pressed");
         } else if (clawDown) {
-            MotorHelper.claw_Hand(robot.clawMotor, -1);
+            MotorHelper.claw_Hand(robot.clawMotor, -speedMult2);
             telemetry.addData("CLAW", "down button has been pressed");
         } else {
             MotorHelper.claw_Hand(robot.clawMotor, 0);
@@ -189,6 +154,8 @@ public class IndianaBotTeleop extends OpMode {
      */
     @Override
     public void stop() {
-
+        // stop the robot
+        MotorHelper.drive(0, 0, 0, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
+        MotorHelper.claw_Hand(robot.clawMotor, 0);
     }
 }
