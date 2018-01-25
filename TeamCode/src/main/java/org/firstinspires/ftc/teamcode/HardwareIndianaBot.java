@@ -53,7 +53,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HardwareIndianaBot {
 
     /* Public OpMode members. */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c726b3ee8a9ac234d1d34a50e7b947ed6d4eded
     public DcMotor leftFrontDrive = null;
     public DcMotor leftBackDrive = null;
     public DcMotor rightFrontDrive = null;
@@ -68,7 +71,10 @@ public class HardwareIndianaBot {
     public Servo clawServoRight2 = null;
 
     public static final double MID_SERVO = 0.5;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c726b3ee8a9ac234d1d34a50e7b947ed6d4eded
     public static double OPEN_SERVO = 00.00;
     public static double CLOSE_SERVO = 0.;
 
@@ -91,7 +97,10 @@ public class HardwareIndianaBot {
         rightFrontDrive = hwMap.get(DcMotor.class, "RFD");
         leftBackDrive = hwMap.get(DcMotor.class, "LBD");
         rightBackDrive = hwMap.get(DcMotor.class, "RBD");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c726b3ee8a9ac234d1d34a50e7b947ed6d4eded
         clawMotor = hwMap.get(DcMotor.class, "CLAW");
 
         motor5 = hwMap.get(DcMotor.class, "5");
