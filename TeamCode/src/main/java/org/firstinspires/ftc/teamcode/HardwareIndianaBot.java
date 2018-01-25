@@ -53,19 +53,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HardwareIndianaBot {
 
     /* Public OpMode members. */
-<<<<<<< HEAD
-    public DcMotor  leftFrontDrive   = null;
-    public DcMotor  leftBackDrive   = null;
-    public DcMotor  rightFrontDrive  = null;
-    public DcMotor  rightBackDrive  = null;
-    public DcMotor  clawMotor = null;
-    public Servo clawServo1 = null;
-    public Servo clawServo2 = null;
-    public Servo clawServo6 = null;
-    public Servo clawServo80 = null;
 
-    public static final double MID_SERVO       =  0.5 ;
-=======
     public DcMotor leftFrontDrive = null;
     public DcMotor leftBackDrive = null;
     public DcMotor rightFrontDrive = null;
@@ -80,7 +68,7 @@ public class HardwareIndianaBot {
     public Servo clawServoRight2 = null;
 
     public static final double MID_SERVO = 0.5;
->>>>>>> 3d32daf4ffbd1695c85c39a5c499cf963e0bb8bf
+
     public static double OPEN_SERVO = 00.00;
     public static double CLOSE_SERVO = 0.;
 
@@ -103,14 +91,12 @@ public class HardwareIndianaBot {
         rightFrontDrive = hwMap.get(DcMotor.class, "RFD");
         leftBackDrive = hwMap.get(DcMotor.class, "LBD");
         rightBackDrive = hwMap.get(DcMotor.class, "RBD");
-<<<<<<< HEAD
-=======
+
         clawMotor = hwMap.get(DcMotor.class, "CLAW");
 
         motor5 = hwMap.get(DcMotor.class, "5");
         motor6 = hwMap.get(DcMotor.class, "6");
         motor7 = hwMap.get(DcMotor.class, "7");
->>>>>>> 3d32daf4ffbd1695c85c39a5c499cf963e0bb8bf
 
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);

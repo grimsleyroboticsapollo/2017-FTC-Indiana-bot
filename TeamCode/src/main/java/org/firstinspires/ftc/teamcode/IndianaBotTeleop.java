@@ -103,17 +103,23 @@ public class IndianaBotTeleop extends OpMode {
         double rightX;
         double leftY;
         boolean clawOpen;
+        boolean badClawOpen;
         boolean clawUp;
         boolean clawDown;
+        boolean badClawUp;
+        boolean badClawDown;
         double speedMult1;
         double speedMult2;
 
         leftX = gamepad1.left_stick_x;
         leftY = gamepad1.left_stick_y;
         rightX = gamepad1.right_stick_x;
-        clawOpen = gamepad2.a;
-        clawUp = gamepad2.x;
-        clawDown = gamepad2.y;
+        clawOpen = gamepad1.a;
+        badClawOpen = gamepad1.b;
+        clawUp = gamepad1.x;
+        clawDown = gamepad1.y;
+        badClawUp = gamepad1.left_bumper;
+        badClawDown = gamepad1.right_bumper;
         double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
         double joySpeed = Math.sqrt(leftX * leftX + leftY * leftY);
         double leftTrigger1 = gamepad1.left_trigger;
@@ -128,16 +134,23 @@ public class IndianaBotTeleop extends OpMode {
         if (clawOpen) {
             robot.clawServoLeft1.setPosition(.9);
             robot.clawServoRight1.setPosition(-.9);
-            robot.clawServoLeft2.setPosition(.9);
-            robot.clawServoRight2.setPosition(-.9);
 
             telemetry.addData("CLAW", "open button has been pressed");
         } else if (!clawOpen) {
             robot.clawServoLeft1.setPosition(0.);
             robot.clawServoRight1.setPosition(0.);
+        }
+
+        if (badClawOpen) {
+            robot.clawServoLeft2.setPosition(.9);
+            robot.clawServoRight2.setPosition(-.9);
+
+            telemetry.addData("CLAW", "open button has been pressed");
+        } else if (!badClawOpen) {
             robot.clawServoLeft2.setPosition(0.);
             robot.clawServoRight2.setPosition(0.);
         }
+
         if (clawUp) {
             MotorHelper.claw_Hand(robot.clawMotor, speedMult2);
             telemetry.addData("CLAW", "up button has been pressed");
@@ -146,6 +159,16 @@ public class IndianaBotTeleop extends OpMode {
             telemetry.addData("CLAW", "down button has been pressed");
         } else {
             MotorHelper.claw_Hand(robot.clawMotor, 0);
+        }
+
+        if (badClawUp) {
+            MotorHelper.claw_Hand(robot.motor5, speedMult2);
+            telemetry.addData("CLAW", "up button has been pressed");
+        } else if (badClawDown) {
+            MotorHelper.claw_Hand(robot.motor5, -speedMult2);
+            telemetry.addData("CLAW", "down button has been pressed");
+        } else {
+            MotorHelper.claw_Hand(robot.motor5, 0);
         }
     }
 
