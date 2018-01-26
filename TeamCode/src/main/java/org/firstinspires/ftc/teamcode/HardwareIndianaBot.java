@@ -50,6 +50,9 @@ public class HardwareIndianaBot {
         clawMotor = hwMap.get(DcMotor.class, "CLAW");
 
         motor5 = hwMap.get(DcMotor.class, "5");
+        // TODO #GAMEDAY Right now you're not using the following motors "6" and "7".
+        // TODO #GAMEDAY If you want to you can delete them. This way you won't get an
+        // TODO #GAMEDAY error "device '6' not found":
         motor6 = hwMap.get(DcMotor.class, "6");
         motor7 = hwMap.get(DcMotor.class, "7");
 
