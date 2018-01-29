@@ -26,7 +26,7 @@ public class AutoIndieBotTurnRight extends LinearOpMode {
          */
         robot.init(hardwareMap);
 
-        String helloWorld = "Autonomous turn right. Turn right!";
+        String helloWorld = "Time to start the autonomous! Let's turn right!!!";
         telemetry.addData("Say", helloWorld);
         TextReader.speak(hardwareMap.appContext, helloWorld);
 

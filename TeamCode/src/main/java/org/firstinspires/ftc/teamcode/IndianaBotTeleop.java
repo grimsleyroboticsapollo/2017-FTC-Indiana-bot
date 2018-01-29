@@ -43,7 +43,7 @@ public class IndianaBotTeleop extends OpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        String helloWorld = "YO, it's tyme to do the robet. Prez buton to stert!1!";
+        String helloWorld = "It's time to compete! Press START when ready!!!";
         telemetry.addData("Say", helloWorld);    //
         TextReader.speak(hardwareMap.appContext, helloWorld);
     }
@@ -75,10 +75,15 @@ public class IndianaBotTeleop extends OpMode {
         double leftY;
         boolean clawOpen;
         boolean badClawOpen;
+        boolean clawClose;
+        boolean BCClose;
+        boolean stringUp;
+        boolean stringDown;
         boolean clawUp;
         boolean clawDown;
         boolean badClawUp;
         boolean badClawDown;
+        boolean lockClaw;
         double speedMult1;
         double speedMult2;
 
@@ -86,11 +91,16 @@ public class IndianaBotTeleop extends OpMode {
         leftY = gamepad1.left_stick_y;
         rightX = gamepad1.right_stick_x;
         clawOpen = gamepad1.a;
-        badClawOpen = gamepad1.b;
-        clawUp = gamepad1.x;
-        clawDown = gamepad1.y;
-        badClawUp = gamepad1.left_bumper;
-        badClawDown = gamepad1.right_bumper;
+        badClawOpen = gamepad1.x;
+        clawClose = gamepad1.b;
+        BCClose = gamepad1.y;
+        clawUp = gamepad2.a;
+        clawDown = gamepad2.b;
+        stringUp = gamepad2.x;
+        stringDown = gamepad2.y;
+        badClawUp = gamepad2.left_bumper;
+        badClawDown = gamepad2.right_bumper;
+        lockClaw = gamepad1.left_bumper;
         double joystickAngle = JoystickHelper.getAngle(leftX, leftY);
         double joySpeed = Math.sqrt(leftX * leftX + leftY * leftY);
         double leftTrigger1 = gamepad1.left_trigger;
@@ -100,50 +110,70 @@ public class IndianaBotTeleop extends OpMode {
 
         speedMult1 = 1. + rightTrigger1 - leftTrigger1 / 2.;
         // TODO #GAMEDAY if not using gamepad2 then replace this next line ...
-        speedMult2 = 1. + rightTrigger2 - leftTrigger2 / 2.;
+        //speedMult2 = speedMult1;
         // TODO #GAMEDAY ... with:
         // speedMult2 = speedMult1;
 
         MotorHelper.drive(joystickAngle, joySpeed * speedMult1, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
 
         if (clawOpen) {
-            robot.clawServoLeft1.setPosition(.9);
-            robot.clawServoRight1.setPosition(-.9);
+            robot.clawServoLeft1.setPosition(-1);
+            robot.clawServoRight1.setPosition(1);
 
             telemetry.addData("CLAW", "open button has been pressed");
-        } else if (!clawOpen) {
-            robot.clawServoLeft1.setPosition(0.);
-            robot.clawServoRight1.setPosition(0.);
+        } else if (clawClose) {
+            robot.clawServoLeft1.setPosition(1);
+            robot.clawServoRight1.setPosition(-1);
+        } else {
+
         }
 
         if (badClawOpen) {
-            robot.clawServoLeft2.setPosition(.9);
-            robot.clawServoRight2.setPosition(-.9);
+            robot.clawServoLeft2.setPosition(-180);
+            robot.clawServoRight2.setPosition(180);
 
             telemetry.addData("CLAW", "open button has been pressed");
-        } else if (!badClawOpen) {
-            robot.clawServoLeft2.setPosition(0.);
-            robot.clawServoRight2.setPosition(0.);
+        } else if (BCClose) {
+            robot.clawServoLeft2.setPosition(180);
+            robot.clawServoRight2.setPosition(-180);
+        } else {
+
         }
 
-        if (clawUp) {
-            MotorHelper.claw_Hand(robot.clawMotor, speedMult2);
+        if (badClawUp) {
+            MotorHelper.claw_Hand(robot.clawMotor, .03);
             telemetry.addData("CLAW", "up button has been pressed");
-        } else if (clawDown) {
-            MotorHelper.claw_Hand(robot.clawMotor, -speedMult2);
+        } else if (badClawDown) {
+            MotorHelper.claw_Hand(robot.clawMotor, -.3);
             telemetry.addData("CLAW", "down button has been pressed");
         } else {
             MotorHelper.claw_Hand(robot.clawMotor, 0);
         }
 
-        if (badClawUp) {
-            MotorHelper.claw_Hand(robot.motor5, speedMult2);
+        if (stringUp) {
+            MotorHelper.claw_Hand(robot.motor6, 2);
             telemetry.addData("CLAW", "up button has been pressed");
-        } else if (badClawDown) {
-            MotorHelper.claw_Hand(robot.motor5, -speedMult2);
+        } else if (stringDown) {
+            MotorHelper.claw_Hand(robot.motor6, -1);
             telemetry.addData("CLAW", "down button has been pressed");
         } else {
             MotorHelper.claw_Hand(robot.motor5, 0);
+        }
+
+        if (clawUp) {
+            MotorHelper.claw_Hand(robot.motor5, 2);
+            telemetry.addData("CLAW", "up button has been pressed");
+        } else if (clawDown) {
+            MotorHelper.claw_Hand(robot.motor5, -1);
+            telemetry.addData("CLAW", "down button has been pressed");
+        } else {
+            MotorHelper.claw_Hand(robot.motor5, 0);
+        }
+
+        if (lockClaw) {
+            MotorHelper.claw_Hand(robot.motor5, 0.03);
+        } else {
+
         }
     }
 

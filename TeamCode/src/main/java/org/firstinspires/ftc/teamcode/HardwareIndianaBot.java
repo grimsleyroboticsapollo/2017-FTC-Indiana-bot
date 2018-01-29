@@ -16,7 +16,7 @@ public class HardwareIndianaBot {
     public DcMotor clawMotor = null;
     public DcMotor motor5 = null; // TODO #JK give meaningful name once used
     public DcMotor motor6 = null; // TODO #JK same here -"-
-    public DcMotor motor7 = null; // TODO #JK same here -"-
+    //public DcMotor motor7 = null; // TODO #JK same here -"-
     public Servo clawServoLeft1 = null;
     public Servo clawServoLeft2 = null;
     public Servo clawServoRight1 = null;
@@ -53,8 +53,8 @@ public class HardwareIndianaBot {
         // TODO #GAMEDAY Right now you're not using the following motors "6" and "7".
         // TODO #GAMEDAY If you want to you can delete them. This way you won't get an
         // TODO #GAMEDAY error "device '6' not found":
-        motor6 = hwMap.get(DcMotor.class, "6");
-        motor7 = hwMap.get(DcMotor.class, "7");
+          motor6 = hwMap.get(DcMotor.class, "6");
+        //motor7 = hwMap.get(DcMotor.class, "7");
 
         // TODO #GAMEDAY Tweak motor direction until robot drives the way you want.
         // TODO #GAMEDAY -----
@@ -73,6 +73,8 @@ public class HardwareIndianaBot {
         rightFrontDrive.setPower(0);
         leftBackDrive.setPower(0);
         rightBackDrive.setPower(0);
+        clawMotor.setPower(0);
+        motor5.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -83,16 +85,16 @@ public class HardwareIndianaBot {
 
         // Define and initialize ALL installed servos.
         clawServoLeft1 = hwMap.get(Servo.class, "CLAWL1");
-        clawServoLeft1.setPosition(MID_SERVO);
+        //clawServoLeft1.setPosition(MID_SERVO);
 
         clawServoRight1 = hwMap.get(Servo.class, "CLAWR1");
-        clawServoRight1.setPosition(MID_SERVO);
+        //clawServoRight1.setPosition(MID_SERVO);
 
         clawServoLeft2 = hwMap.get(Servo.class, "CLAWL2");
-        clawServoLeft2.setPosition(MID_SERVO);
+        //clawServoLeft2.setPosition(MID_SERVO);
 
         clawServoRight2 = hwMap.get(Servo.class, "CLAWR2");
-        clawServoRight2.setPosition(MID_SERVO);
+        //clawServoRight2.setPosition(MID_SERVO);
     }
 }
 
