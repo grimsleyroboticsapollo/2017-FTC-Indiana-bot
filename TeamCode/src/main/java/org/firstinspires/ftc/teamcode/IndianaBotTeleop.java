@@ -156,7 +156,11 @@ public class IndianaBotTeleop extends OpMode {
         }
 
         if (badClawUp) {
+<<<<<<< HEAD
             MotorHelper.claw_Hand(robot.clawMotor, .05);
+=======
+            MotorHelper.claw_Hand(robot.clawMotor, .5);
+>>>>>>> 6c11e7ec3d73946a87157fea5087695b15748ab1
             telemetry.addData("CLAW", "up button has been pressed");
         } else if (badClawDown) {
             MotorHelper.claw_Hand(robot.clawMotor, -.3);
