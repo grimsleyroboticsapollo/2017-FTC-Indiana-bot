@@ -43,7 +43,7 @@ public class IndianaBotTeleop extends OpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        String helloWorld = "It's time to compete! Press START when ready!!!";
+        String helloWorld = "YO! IT'S TYME TO DO THE ROBIT! PRESS B TO STERT!1!";
         telemetry.addData("Say", helloWorld);    //
         TextReader.speak(hardwareMap.appContext, helloWorld);
     }
@@ -73,6 +73,8 @@ public class IndianaBotTeleop extends OpMode {
         double leftX;
         double rightX;
         double leftY;
+        boolean noTurnLeft; //this is a 'blueprint' for linear movement. Will remove once finished
+        boolean noTurnRight; // same here
         boolean clawOpen;
         boolean badClawOpen;
         boolean clawClose;
@@ -85,14 +87,15 @@ public class IndianaBotTeleop extends OpMode {
         boolean badClawDown;
         boolean lockClaw;
         double speedMult1;
-        double speedMult2;
 
         leftX = gamepad1.left_stick_x;
         leftY = gamepad1.left_stick_y;
         rightX = gamepad1.right_stick_x;
+        noTurnLeft = gamepad1.dpad_left;
+        noTurnRight = gamepad1.dpad_right;
         clawOpen = gamepad1.a;
-        badClawOpen = gamepad1.x;
-        clawClose = gamepad1.b;
+        badClawOpen = gamepad1.b;
+        clawClose = gamepad1.x;
         BCClose = gamepad1.y;
         clawUp = gamepad2.a;
         clawDown = gamepad2.b;
@@ -105,8 +108,6 @@ public class IndianaBotTeleop extends OpMode {
         double joySpeed = Math.sqrt(leftX * leftX + leftY * leftY);
         double leftTrigger1 = gamepad1.left_trigger;
         double rightTrigger1 = gamepad1.right_trigger;
-        double leftTrigger2 = gamepad2.left_trigger; // TODO #GAMEDAY delete gamepad2 if not needed
-        double rightTrigger2 = gamepad2.right_trigger; // TODO #GAMEDAY delete gamepad2 if not needed
 
         speedMult1 = 1. + rightTrigger1 - leftTrigger1 / 2.;
         // TODO #GAMEDAY if not using gamepad2 then replace this next line ...
@@ -115,6 +116,20 @@ public class IndianaBotTeleop extends OpMode {
         // speedMult2 = speedMult1;
 
         MotorHelper.drive(joystickAngle, joySpeed * speedMult1, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
+
+        if (noTurnLeft) {
+            robot.leftFrontDrive.setPower(-1);
+            robot.leftBackDrive.setPower(1);
+            robot.rightFrontDrive.setPower(1);
+            robot.rightBackDrive.setPower(-1);
+        } else if (noTurnRight) {
+            robot.leftFrontDrive.setPower(1);
+            robot.leftBackDrive.setPower(-1);
+            robot.rightFrontDrive.setPower(-1);
+            robot.rightBackDrive.setPower(1);
+        } else {
+
+        }
 
         if (clawOpen) {
             robot.clawServoLeft1.setPosition(-1);
@@ -141,7 +156,7 @@ public class IndianaBotTeleop extends OpMode {
         }
 
         if (badClawUp) {
-            MotorHelper.claw_Hand(robot.clawMotor, .03);
+            MotorHelper.claw_Hand(robot.clawMotor, .05);
             telemetry.addData("CLAW", "up button has been pressed");
         } else if (badClawDown) {
             MotorHelper.claw_Hand(robot.clawMotor, -.3);

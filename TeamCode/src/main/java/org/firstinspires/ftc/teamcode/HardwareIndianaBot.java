@@ -75,6 +75,7 @@ public class HardwareIndianaBot {
         rightBackDrive.setPower(0);
         clawMotor.setPower(0);
         motor5.setPower(0);
+        motor6.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
