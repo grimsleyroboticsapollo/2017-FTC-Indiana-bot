@@ -73,8 +73,8 @@ public class IndianaBotTeleop extends OpMode {
         double leftX;
         double rightX;
         double leftY;
-        boolean noTurnLeft; //this is a 'blueprint' for linear movement. Will remove once finished
-        boolean noTurnRight; // same here
+        boolean noTurnLeft = false; //this is a 'blueprint' for linear movement. Will remove once finished
+        boolean noTurnRight = false; // same here
         boolean clawOpen;
         boolean badClawOpen;
         boolean clawClose;
@@ -118,11 +118,19 @@ public class IndianaBotTeleop extends OpMode {
         MotorHelper.drive(joystickAngle, joySpeed * speedMult1, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
 
         if (noTurnLeft) {
+            // TODO #JK I don't quite understand what you want to do. If you just want the robot to drive to the left
+            // TODO #JK without turning, then you could just use the left joystick button and move it to the left. If
+            // TODO #JK that makes the robot turn then there's a problem elsewhere (either in the motors or in the programming).
+            // TODO #JK But if you just want a shortcut for driving to the left, then use the MotorHelper.drive function
+            // TODO #JK as such:
+            // MotorHelper.drive(90., speedMult1, 0, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
             robot.leftFrontDrive.setPower(-1);
             robot.leftBackDrive.setPower(1);
             robot.rightFrontDrive.setPower(1);
             robot.rightBackDrive.setPower(-1);
         } else if (noTurnRight) {
+            // TODO #JK similar to the above, don't power motors directly but use the MotorHelper:
+            // MotorHelper.drive(270., speedMult1, 0, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
             robot.leftFrontDrive.setPower(1);
             robot.leftBackDrive.setPower(-1);
             robot.rightFrontDrive.setPower(-1);
@@ -156,11 +164,8 @@ public class IndianaBotTeleop extends OpMode {
         }
 
         if (badClawUp) {
-<<<<<<< HEAD
             MotorHelper.claw_Hand(robot.clawMotor, .05);
-=======
             MotorHelper.claw_Hand(robot.clawMotor, .5);
->>>>>>> 6c11e7ec3d73946a87157fea5087695b15748ab1
             telemetry.addData("CLAW", "up button has been pressed");
         } else if (badClawDown) {
             MotorHelper.claw_Hand(robot.clawMotor, -.3);
