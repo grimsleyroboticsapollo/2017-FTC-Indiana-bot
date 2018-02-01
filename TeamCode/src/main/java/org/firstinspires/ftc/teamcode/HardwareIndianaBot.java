@@ -53,13 +53,6 @@ public class HardwareIndianaBot {
         motor6 = hwMap.get(DcMotor.class, "6");
         //motor7 = hwMap.get(DcMotor.class, "7");
 
-        // TODO #GAMEDAY Tweak motor direction until robot drives the way you want.
-        // TODO #GAMEDAY -----
-        // TODO #GAMEDAY ----- IMPORTANT: ONLY MAKE CHANGES HERE FOR DRIVING!!!
-        // TODO #GAMEDAY ----- Changes here will then work everywhere (teleop and autonomous).
-        // TODO #GAMEDAY -----
-        // TODO #GAMEDAY Left joystick: Drive in robot orientation.
-        // TODO #GAMEDAY Right joystick: left/right turns robot on the spot.
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
