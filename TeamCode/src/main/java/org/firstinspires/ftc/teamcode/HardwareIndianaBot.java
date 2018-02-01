@@ -14,9 +14,9 @@ public class HardwareIndianaBot {
     public DcMotor rightFrontDrive = null;
     public DcMotor rightBackDrive = null;
     public DcMotor clawMotor = null;
-    public DcMotor motor5 = null; // TODO #JK give meaningful name once used
-    public DcMotor motor6 = null; // TODO #JK same here -"-
-    //public DcMotor motor7 = null; // TODO #JK same here -"-
+    public DcMotor motor5 = null;
+    public DcMotor motor6 = null;
+    //public DcMotor motor7 = null;
     public Servo clawServoLeft1 = null;
     public Servo clawServoLeft2 = null;
     public Servo clawServoRight1 = null;
@@ -50,10 +50,7 @@ public class HardwareIndianaBot {
         clawMotor = hwMap.get(DcMotor.class, "CLAW");
 
         motor5 = hwMap.get(DcMotor.class, "5");
-        // TODO #GAMEDAY Right now you're not using the following motors "6" and "7".
-        // TODO #GAMEDAY If you want to you can delete them. This way you won't get an
-        // TODO #GAMEDAY error "device '6' not found":
-          motor6 = hwMap.get(DcMotor.class, "6");
+        motor6 = hwMap.get(DcMotor.class, "6");
         //motor7 = hwMap.get(DcMotor.class, "7");
 
         // TODO #GAMEDAY Tweak motor direction until robot drives the way you want.
@@ -98,4 +95,3 @@ public class HardwareIndianaBot {
         //clawServoRight2.setPosition(MID_SERVO);
     }
 }
-

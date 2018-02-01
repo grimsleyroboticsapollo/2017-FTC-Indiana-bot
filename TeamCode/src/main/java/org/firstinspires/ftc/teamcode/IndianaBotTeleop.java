@@ -110,33 +110,13 @@ public class IndianaBotTeleop extends OpMode {
         double rightTrigger1 = gamepad1.right_trigger;
 
         speedMult1 = 1. + rightTrigger1 - leftTrigger1 / 2.;
-        // TODO #GAMEDAY if not using gamepad2 then replace this next line ...
-        //speedMult2 = speedMult1;
-        // TODO #GAMEDAY ... with:
-        // speedMult2 = speedMult1;
 
         MotorHelper.drive(joystickAngle, joySpeed * speedMult1, rightX, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
 
         if (noTurnLeft) {
-            // TODO #JK I don't quite understand what you want to do. If you just want the robot to drive to the left
-            // TODO #JK without turning, then you could just use the left joystick button and move it to the left. If
-            // TODO #JK that makes the robot turn then there's a problem elsewhere (either in the motors or in the programming).
-            // TODO #JK But if you just want a shortcut for driving to the left, then use the MotorHelper.drive function
-            // TODO #JK as such:
-            // MotorHelper.drive(90., speedMult1, 0, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
-            robot.leftFrontDrive.setPower(-1);
-            robot.leftBackDrive.setPower(1);
-            robot.rightFrontDrive.setPower(1);
-            robot.rightBackDrive.setPower(-1);
+            MotorHelper.drive(90., speedMult1, 0, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
         } else if (noTurnRight) {
-            // TODO #JK similar to the above, don't power motors directly but use the MotorHelper:
-            // MotorHelper.drive(270., speedMult1, 0, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
-            robot.leftFrontDrive.setPower(1);
-            robot.leftBackDrive.setPower(-1);
-            robot.rightFrontDrive.setPower(-1);
-            robot.rightBackDrive.setPower(1);
-        } else {
-
+            MotorHelper.drive(270., speedMult1, 0, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
         }
 
         if (clawOpen) {
@@ -147,8 +127,6 @@ public class IndianaBotTeleop extends OpMode {
         } else if (clawClose) {
             robot.clawServoLeft1.setPosition(1);
             robot.clawServoRight1.setPosition(-1);
-        } else {
-
         }
 
         if (badClawOpen) {
@@ -159,36 +137,33 @@ public class IndianaBotTeleop extends OpMode {
         } else if (BCClose) {
             robot.clawServoLeft2.setPosition(180);
             robot.clawServoRight2.setPosition(-180);
-        } else {
-
         }
 
         if (badClawUp) {
-            MotorHelper.claw_Hand(robot.clawMotor, .05);
-            MotorHelper.claw_Hand(robot.clawMotor, .5);
+            MotorHelper.claw_Hand(robot.clawMotor, .3 * speedMult1);
             telemetry.addData("CLAW", "up button has been pressed");
         } else if (badClawDown) {
-            MotorHelper.claw_Hand(robot.clawMotor, -.3);
+            MotorHelper.claw_Hand(robot.clawMotor, -.3 * speedMult1);
             telemetry.addData("CLAW", "down button has been pressed");
         } else {
             MotorHelper.claw_Hand(robot.clawMotor, 0);
         }
 
         if (stringUp) {
-            MotorHelper.claw_Hand(robot.motor6, 2);
+            MotorHelper.claw_Hand(robot.motor6, 1.);
             telemetry.addData("CLAW", "up button has been pressed");
         } else if (stringDown) {
-            MotorHelper.claw_Hand(robot.motor6, -1);
+            MotorHelper.claw_Hand(robot.motor6, -1.);
             telemetry.addData("CLAW", "down button has been pressed");
         } else {
             MotorHelper.claw_Hand(robot.motor5, 0);
         }
 
         if (clawUp) {
-            MotorHelper.claw_Hand(robot.motor5, 2);
+            MotorHelper.claw_Hand(robot.motor5, 1.);
             telemetry.addData("CLAW", "up button has been pressed");
         } else if (clawDown) {
-            MotorHelper.claw_Hand(robot.motor5, -1);
+            MotorHelper.claw_Hand(robot.motor5, -1.);
             telemetry.addData("CLAW", "down button has been pressed");
         } else {
             MotorHelper.claw_Hand(robot.motor5, 0);
