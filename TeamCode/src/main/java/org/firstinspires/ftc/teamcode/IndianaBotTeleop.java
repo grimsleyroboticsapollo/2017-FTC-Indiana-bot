@@ -75,10 +75,10 @@ public class IndianaBotTeleop extends OpMode {
         double leftY;
         boolean noTurnLeft = false; //this is a 'blueprint' for linear movement. Will remove once finished
         boolean noTurnRight = false; // same here
-        boolean clawOpen;
-        boolean badClawOpen;
-        boolean clawClose;
-        boolean BCClose;
+        boolean clawOpen; // TODO right now coded to open the artifact claw
+        boolean badClawOpen; // TODO right now coded to close the glyph claw
+        boolean clawClose; // TODO right now coded to close the artifact claw
+        boolean BCClose; // TODO right now coded to open the glyph claw
         boolean stringUp;
         boolean stringDown;
         boolean clawUp;
@@ -120,23 +120,23 @@ public class IndianaBotTeleop extends OpMode {
         }
 
         if (clawOpen) {
-            robot.clawServoLeft1.setPosition(-1);
-            robot.clawServoRight1.setPosition(1);
+            robot.clawServoLeft1.setPosition(0.7);
+            robot.clawServoRight1.setPosition(0.3);
 
             telemetry.addData("CLAW", "open button has been pressed");
         } else if (clawClose) {
             robot.clawServoLeft1.setPosition(1);
-            robot.clawServoRight1.setPosition(-1);
+            robot.clawServoRight1.setPosition(0);
         }
 
         if (badClawOpen) {
-            robot.clawServoLeft2.setPosition(-180);
-            robot.clawServoRight2.setPosition(180);
+            robot.clawServoLeft2.setPosition(0);
+            robot.clawServoRight2.setPosition(1); // TODO currently a continuous rotating servo
 
             telemetry.addData("CLAW", "open button has been pressed");
         } else if (BCClose) {
-            robot.clawServoLeft2.setPosition(180);
-            robot.clawServoRight2.setPosition(-180);
+            robot.clawServoLeft2.setPosition(0.8);
+            robot.clawServoRight2.setPosition(0.2); // TODO currently a continuous rotating servo
         }
 
         if (badClawUp) {
@@ -160,10 +160,10 @@ public class IndianaBotTeleop extends OpMode {
         }
 
         if (clawUp) {
-            MotorHelper.claw_Hand(robot.motor5, 1.);
+            MotorHelper.claw_Hand(robot.motor5, 0.5);
             telemetry.addData("CLAW", "up button has been pressed");
         } else if (clawDown) {
-            MotorHelper.claw_Hand(robot.motor5, -1.);
+            MotorHelper.claw_Hand(robot.motor5, -0.5);
             telemetry.addData("CLAW", "down button has been pressed");
         } else {
             MotorHelper.claw_Hand(robot.motor5, 0);
