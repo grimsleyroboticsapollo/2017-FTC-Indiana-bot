@@ -119,24 +119,24 @@ public class IndianaBotTeleop extends OpMode {
             MotorHelper.drive(270., speedMult1, 0, robot.leftFrontDrive, robot.rightFrontDrive, robot.leftBackDrive, robot.rightBackDrive);
         }
 
-        if (clawOpen) {
+        if (clawOpen) { // TODO opens artifact claw
             robot.clawServoLeft1.setPosition(0.7);
             robot.clawServoRight1.setPosition(0.3);
 
             telemetry.addData("CLAW", "open button has been pressed");
-        } else if (clawClose) {
+        } else if (clawClose) { // TODO closes artifact claw
             robot.clawServoLeft1.setPosition(1);
             robot.clawServoRight1.setPosition(0);
         }
 
-        if (badClawOpen) {
-            robot.clawServoLeft2.setPosition(0);
-            robot.clawServoRight2.setPosition(1); // TODO currently a continuous rotating servo
+        if (badClawOpen) { // TODO closes (yes, CLOSES) the glyph claw
+            robot.clawServoLeft2.setPosition(0.2);
+            robot.clawServoRight2.setPosition(0.8);
 
             telemetry.addData("CLAW", "open button has been pressed");
-        } else if (BCClose) {
+        } else if (BCClose) { // TODO opens (yes, OPENS) the glyph claw
             robot.clawServoLeft2.setPosition(0.8);
-            robot.clawServoRight2.setPosition(0.2); // TODO currently a continuous rotating servo
+            robot.clawServoRight2.setPosition(0.35);
         }
 
         if (badClawUp) {
