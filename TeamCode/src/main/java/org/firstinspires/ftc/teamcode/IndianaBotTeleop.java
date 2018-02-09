@@ -130,13 +130,13 @@ public class IndianaBotTeleop extends OpMode {
         }
 
         if (badClawOpen) { // TODO closes (yes, CLOSES) the glyph claw
-            robot.clawServoLeft2.setPosition(0.2);
-            robot.clawServoRight2.setPosition(0.8);
+            robot.clawServoLeft2.setPosition(0.25); // servo #3
+            robot.clawServoRight2.setPosition(0.75); // servo #4
 
             telemetry.addData("CLAW", "open button has been pressed");
         } else if (BCClose) { // TODO opens (yes, OPENS) the glyph claw
-            robot.clawServoLeft2.setPosition(0.8);
-            robot.clawServoRight2.setPosition(0.35);
+            robot.clawServoLeft2.setPosition(0.7); // servo #3
+            robot.clawServoRight2.setPosition(0.3); // servo #4
         }
 
         if (badClawUp) {
